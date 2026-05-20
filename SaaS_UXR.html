@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e63946;--rd:#b52a35;--rs:rgba(230,57,70,.09);--rb:rgba(230,57,70,.22);--bg:#0b0b0d;--b2:#111115;--b3:#17171c;--b4:#1e1e25;--br:#252530;--b2r:#2e2e3a;--tx:#f0f0f4;--mu:#6b6b7e;--m2:#4a4a58;--gr:#1fcc7a;--gs:rgba(31,204,122,.09);--gb:rgba(31,204,122,.22);--am:#f5a623;--as:rgba(245,166,35,.09);--ab:rgba(245,166,35,.22);--or:#ff6b35;--os:rgba(255,107,53,.09);--bl:#4f8ef7;--bs:rgba(79,142,247,.09);--bk:#111;--mo:'DM Mono',monospace;--sa:'Bricolage Grotesque',sans-serif}
+html,body{background:var(--bg);color:var(--tx);font-family:var(--sa);font-size:14px;line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--b2)}::-webkit-scrollbar-thumb{background:var(--b2r);border-radius:2px}
+.app{display:grid;grid-template-columns:224px 1fr;min-height:100vh}
+.sb{background:var(--b2);border-right:1px solid var(--br);display:flex;flex-direction:column}
+.sb-logo{padding:22px 18px 18px;border-bottom:1px solid var(--br)}
+.ld{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0}
+.lt{font-size:15px;font-weight:700;letter-spacing:-.3px}
+.ls{font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:2px;margin-top:2px}
+.sb-nav{flex:1;padding:10px 6px}
+.nl{font-family:var(--mo);font-size:9px;color:var(--m2);letter-spacing:2px;padding:0 12px;margin:16px 0 6px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--mu);font-size:13px;font-weight:500;border:none;background:none;width:100%;text-align:left;transition:all .15s}
+.ni:hover{background:var(--b3);color:var(--tx)}
+.ni.on{background:var(--rs);color:var(--red);border:1px solid var(--rb)}
+.nb{margin-left:auto;background:var(--red);color:#fff;font-family:var(--mo);font-size:9px;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center}
+.sb-ft{padding:14px 6px;border-top:1px solid var(--br)}
+.sb-ft-t{font-family:var(--mo);font-size:9px;color:var(--m2);padding:0 12px;line-height:1.8}
+.mn{display:flex;flex-direction:column;overflow:hidden}
+.tb{background:var(--b2);border-bottom:1px solid var(--br);padding:0 26px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tbt{font-size:15px;font-weight:600}
+.tbd{display:flex;align-items:center;gap:9px}
+.pc{flex:1;overflow-y:auto;padding:26px}
+.pg{display:none}.pg.on{display:block}
+.kg{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin-bottom:26px}
+.kc{background:var(--b2);border:1px solid var(--br);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kc.cr::before{background:var(--red)}.kc.cg::before{background:var(--gr)}.kc.ca::before{background:var(--am)}.kc.cb::before{background:var(--bl)}.kc.co::before{background:var(--or)}.kc.ck::before{background:#666}
+.kl{font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1.5px;margin-bottom:7px}
+.kv{font-size:26px;font-weight:700;letter-spacing:-1px;line-height:1}
+.ks{font-size:11px;color:var(--mu);margin-top:3px}
+.kc.cr .kv{color:var(--red)}.kc.cg .kv{color:var(--gr)}.kc.ca .kv{color:var(--am)}.kc.cb .kv{color:var(--bl)}.kc.co .kv{color:var(--or)}.kc.ck .kv{color:#888}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.st{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+.st::before{content:'';width:3px;height:14px;background:var(--red);border-radius:2px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-family:var(--sa);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;letter-spacing:.2px}
+.bp{background:var(--red);color:#fff}.bp:hover{background:var(--rd)}.bp:disabled{opacity:.5;cursor:not-allowed}
+.bs{background:var(--b3);color:var(--tx);border:1px solid var(--b2r)}.bs:hover{background:var(--b4)}
+.bg{background:transparent;color:var(--mu);border:1px solid var(--br)}.bg:hover{color:var(--tx);border-color:var(--b2r)}
+.bsm{padding:5px 9px;font-size:11px}
+.tw{background:var(--b2);border:1px solid var(--br);border-radius:14px;overflow:hidden}
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.tbl th{font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1.5px;padding:9px 13px;text-align:left;border-bottom:1px solid var(--br);background:var(--b3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbl td{padding:11px 13px;border-bottom:1px solid var(--br);font-size:12px;vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:0}
+.tbl td.wrap{white-space:normal;word-break:break-word}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl tbody tr{transition:background .1s;cursor:pointer}
+.tbl tbody tr:hover{background:var(--b3)}
+.tbl tbody tr:hover .ra{opacity:1}
+.ra{opacity:0;transition:opacity .15s;display:flex;gap:3px;white-space:nowrap}
+/* Colonne contacts tronquée */
+.cts-cell{max-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cts-cell .chip{display:none}
+.cts-cell .cts-short{display:inline;font-size:11px;color:var(--mu)}
+.bge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-family:var(--mo);font-size:10px;font-weight:500}
+.br_{background:var(--rs);color:var(--red);border:1px solid var(--rb)}
+.bg_{background:var(--gs);color:var(--gr);border:1px solid var(--gb)}
+.ba_{background:var(--as);color:var(--am);border:1px solid var(--ab)}
+.bm_{background:var(--b3);color:var(--mu);border:1px solid var(--br)}
+.bb_{background:var(--bs);color:var(--bl);border:1px solid rgba(79,142,247,.22)}
+.bk_{background:rgba(100,100,100,.12);color:#888;border:1px solid rgba(100,100,100,.25)}
+.up{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap}
+.ug{background:var(--gs);color:var(--gr)}.ua{background:var(--as);color:var(--am)}.uo{background:var(--os);color:var(--or)}.ur{background:var(--rs);color:var(--red)}.uk{background:rgba(100,100,100,.12);color:#888}
+.tg{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;background:var(--b4);color:var(--mu);border:1px solid var(--br)}
+.fg{margin-bottom:14px}
+.fl{font-family:var(--mo);font-size:10px;color:var(--mu);letter-spacing:1px;display:block;margin-bottom:5px}
+.fi,.fse,.fta{width:100%;background:var(--b3);border:1px solid var(--br);border-radius:8px;padding:9px 13px;color:var(--tx);font-family:var(--sa);font-size:13px;outline:none;transition:border-color .2s}
+.fi:focus,.fse:focus,.fta:focus{border-color:var(--red)}
+.fse{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b7e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.fse option{background:var(--b3)}
+.fta{resize:vertical;min-height:90px}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.mo.op{opacity:1;pointer-events:all}
+.md{background:var(--b2);border:1px solid var(--b2r);border-radius:14px;width:min(700px,95vw);max-height:87vh;display:flex;flex-direction:column;transform:translateY(14px);transition:transform .2s}
+.mo.op .md{transform:translateY(0)}
+.mh{padding:18px 22px 15px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mt{font-size:15px;font-weight:600}
+.mb{padding:18px 22px;overflow-y:auto;flex:1}
+.mf{padding:14px 22px;border-top:1px solid var(--br);display:flex;justify-content:flex-end;gap:9px;flex-shrink:0}
+.xb{background:none;border:none;color:var(--mu);cursor:pointer;padding:4px;border-radius:6px;font-size:18px;transition:color .15s;line-height:1}.xb:hover{color:var(--tx)}
+.cc{display:flex;flex-direction:column;gap:2px}
+.cn{font-weight:600;font-size:13px}
+.cs{font-size:11px;color:var(--mu)}
+.chip{display:inline-flex;align-items:center;gap:4px;background:var(--b4);border:1px solid var(--br);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--mu);margin:2px}
+.sw{max-width:740px;margin:0 auto}
+.sc{background:var(--b2);border:1px solid var(--br);border-radius:14px;padding:22px;margin-bottom:18px}
+.vb{padding:16px 20px;border-radius:10px;margin-bottom:18px;display:flex;align-items:center;gap:15px}
+.vgo{background:var(--gs);border:1px solid var(--gb)}.vno{background:var(--rs);border:1px solid var(--rb)}.vam{background:var(--as);border:1px solid var(--ab)}
+.vf{font-family:var(--mo);font-size:10px;letter-spacing:2px;margin-bottom:3px}
+.vgo .vf{color:var(--gr)}.vno .vf{color:var(--red)}.vam .vf{color:var(--am)}
+.vt{font-size:16px;font-weight:700}
+.sr{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+.sl{font-size:12px;min-width:190px}
+.sk{flex:1;height:5px;background:var(--b2r);border-radius:3px;overflow:hidden}
+.sf{height:100%;border-radius:3px;transition:width .7s ease}
+.sn{font-family:var(--mo);font-size:11px;color:var(--mu);min-width:30px;text-align:right}
+.stag{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:6px;font-size:12px;margin:3px}
+.sp{background:var(--gs);color:var(--gr)}.sn2{background:var(--rs);color:var(--red)}
+.ka{cursor:grab}.ka:active{cursor:grabbing}
+.ka.dragging{opacity:.35;transform:scale(.96)}
+.kc2.drag-over{border-color:var(--red);background:rgba(230,57,70,.06);box-shadow:0 0 0 2px rgba(230,57,70,.18)}
+.kc2.drag-over .kh{color:var(--red)!important}
+.drag-hint{font-family:var(--mo);font-size:9px;color:var(--m2);letter-spacing:1px;text-align:center;padding:0 0 9px;opacity:.55}
+.ptb{display:flex;gap:4px;margin-bottom:11px}
+.pt{padding:4px 11px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--br);background:none;color:var(--mu);transition:all .15s}
+.pt.on{background:var(--rs);color:var(--red);border-color:var(--rb)}
+.pc2{display:none}.pc2.on{display:block}
+.pb{background:var(--b3);border:1px solid var(--br);border-radius:10px;padding:16px;font-size:12px;line-height:1.7;color:#ccc;white-space:pre-wrap;font-family:var(--mo);margin-bottom:8px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fb{display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap}
+.fi2{background:var(--b2);border:1px solid var(--br);border-radius:8px;padding:6px 11px;color:var(--tx);font-family:var(--sa);font-size:12px;outline:none;transition:border-color .2s;min-width:190px}
+.fi2:focus{border-color:var(--red)}
+.fs2{background:var(--b2);border:1px solid var(--br);border-radius:8px;padding:6px 26px 6px 11px;color:var(--tx);font-family:var(--sa);font-size:12px;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236b6b7e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center}
+.fs2 option{background:var(--b2)}
+.pc_{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.kc2{background:var(--b2);border:1px solid var(--br);border-radius:14px;padding:11px;min-height:280px}
+.kh{font-family:var(--mo);font-size:9px;letter-spacing:1.5px;color:var(--mu);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between}
+.kn{background:var(--b4);color:var(--mu);font-size:9px;padding:1px 6px;border-radius:10px}
+.ka{background:var(--b3);border:1px solid var(--br);border-radius:8px;padding:10px;margin-bottom:7px;transition:border-color .15s}
+.ka:hover{border-color:var(--b2r)}
+.kco{font-weight:600;font-size:12px;margin-bottom:3px}
+.ksi{font-size:11px;color:var(--mu);margin-bottom:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tst{position:fixed;bottom:22px;right:22px;background:var(--b3);border:1px solid var(--b2r);border-radius:10px;padding:11px 16px;font-size:13px;z-index:2000;transform:translateY(8px);opacity:0;transition:all .25s;pointer-events:none;display:flex;align-items:center;gap:8px}
+.tst.sh2{transform:translateY(0);opacity:1}
+.dv{height:1px;background:var(--br);margin:16px 0}
+.rs{background:var(--b2);border:1px solid var(--br);border-radius:14px;padding:20px;margin-bottom:15px}
+.tooltip{position:relative;display:inline-block}
+.tooltip .tt{visibility:hidden;background:var(--b4);color:var(--tx);text-align:left;padding:8px 10px;border-radius:6px;border:1px solid var(--b2r);font-size:11px;line-height:1.5;white-space:nowrap;position:absolute;z-index:100;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);pointer-events:none;opacity:0;transition:opacity .15s;min-width:180px;max-width:260px;white-space:normal}
+.tooltip:hover .tt{visibility:visible;opacity:1}
+.help{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:var(--b3);border:1px solid var(--br);border-radius:50%;font-size:10px;color:var(--mu);cursor:help;flex-shrink:0}
+.jn-wrap{background:var(--b3);border:1px solid var(--br);border-radius:10px;padding:13px;margin-bottom:10px}
+.jn-entry{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--br)}
+.jn-entry:last-child{border-bottom:none;padding-bottom:0}
+.jn-ts{font-family:var(--mo);font-size:10px;color:var(--m2);min-width:80px;flex-shrink:0;padding-top:1px}
+.jn-txt{font-size:12px;color:var(--tx);line-height:1.5;flex:1}
+.jn-del{background:none;border:none;color:var(--m2);cursor:pointer;font-size:13px;padding:0 3px;line-height:1;flex-shrink:0;transition:color .15s}.jn-del:hover{color:var(--red)}
+.jn-add{display:flex;gap:7px;margin-top:10px}
+.jn-inp{flex:1;background:var(--b4);border:1px solid var(--br);border-radius:7px;padding:7px 11px;color:var(--tx);font-family:var(--sa);font-size:12px;outline:none}
+.jn-inp:focus{border-color:var(--red)}
+.relance-alert{background:var(--as);border:1px solid var(--ab);border-radius:7px;padding:4px 10px;font-family:var(--mo);font-size:10px;color:var(--am);display:inline-flex;align-items:center;gap:5px}
+.hist-card{background:var(--b2);border:1px solid var(--br);border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:14px}
+.hist-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.hist-info{flex:1}
+.hist-co{font-weight:600;font-size:13px;margin-bottom:2px}
+.hist-sig{font-size:11px;color:var(--mu);margin-bottom:6px}
+.hist-meta{font-family:var(--mo);font-size:10px;color:var(--m2)}
+.kbd{display:inline-block;background:var(--b4);border:1px solid var(--b2r);border-radius:4px;padding:1px 6px;font-family:var(--mo);font-size:10px;color:var(--mu)}
+/* Tag input pour les contacts */
+.tag-box{background:var(--b3);border:1px solid var(--br);border-radius:8px;padding:7px 9px;min-height:44px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;cursor:text;transition:border-color .2s}
+.tag-box:focus-within{border-color:var(--red)}
+.tag-chip{display:inline-flex;align-items:center;gap:5px;background:var(--b4);border:1px solid var(--b2r);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--tx);white-space:nowrap}
+.tag-chip-del{background:none;border:none;color:var(--m2);cursor:pointer;font-size:13px;line-height:1;padding:0;transition:color .15s}.tag-chip-del:hover{color:var(--red)}
+.tag-inp{border:none;outline:none;background:transparent;color:var(--tx);font-family:var(--sa);font-size:13px;min-width:180px;flex:1;padding:2px 4px}
+/* Improved page headers */
+.pg-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:16px}
+.pg-header-info{flex:1}
+.pg-title{font-size:18px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px}
+.pg-desc{font-size:13px;color:var(--mu);line-height:1.5}
+/* Suivi row improvements */
+.suiv-co{font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px}
+.suiv-sig{font-size:11px;color:var(--mu);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px}
+/* Inline edit fields for suivi modal */
+.suiv-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+/* Highlight clickable rows */
+.tbl tbody tr.clickable-row:hover{background:var(--b3);cursor:pointer}
+.tbl tbody tr.clickable-row td:first-child{border-left:2px solid transparent;transition:border-color .15s}
+.tbl tbody tr.clickable-row:hover td:first-child{border-left:2px solid var(--red)}
+/* Action bar on suiv page */
+.suiv-actions{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+/* Amélioration visuelle des chips contacts dans le tableau signaux */
+.chips-overflow{display:inline-flex;align-items:center;gap:3px;overflow:hidden;max-width:100%}
+.chips-count{font-family:var(--mo);font-size:10px;color:var(--mu);background:var(--b4);border:1px solid var(--br);border-radius:10px;padding:1px 6px;white-space:nowrap;flex-shrink:0}
+/* Detail modal improved */
+.det-section{background:var(--b3);border:1px solid var(--br);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.det-label{font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1.5px;margin-bottom:5px}
+.det-value{font-size:13px;color:var(--tx);line-height:1.6}
+/* Floating add button */
+.fab{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:var(--red);color:#fff;border:none;border-radius:50%;font-size:22px;cursor:pointer;box-shadow:0 4px 20px rgba(230,57,70,.4);transition:all .2s;display:flex;align-items:center;justify-content:center;z-index:500}
+.fab:hover{background:var(--rd);transform:scale(1.08);box-shadow:0 6px 24px rgba(230,57,70,.5)}
+/* Empty state */
+.empty-state{text-align:center;padding:52px 24px;color:var(--mu)}
+.empty-icon{font-size:32px;margin-bottom:12px;opacity:.5}
+.empty-text{font-size:14px;font-weight:500;color:var(--tx);margin-bottom:6px}
+.empty-sub{font-size:12px;color:var(--mu)}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sb">
+    <div class="sb-logo">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="ld"></div>
+        <div><div class="lt">UXR Radar</div><div class="ls">UX REPUBLIC · VEILLE</div></div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="nl">Principal</div>
+      <button class="ni on" onclick="nav('dash')">◈ &nbsp;Dashboard</button>
+      <button class="ni" onclick="nav('sig')">◎ &nbsp;Signaux marché <span class="nb" id="bc">0</span></button>
+      <button class="ni" onclick="nav('pipe')">◇ &nbsp;Pipeline</button>
+      <button class="ni" onclick="nav('suiv')">◉ &nbsp;Suivis de contact</button>
+      <button class="ni" onclick="nav('hist')">◑ &nbsp;Historique</button>
+      <div class="nl">Outils IA</div>
+      <button class="ni" onclick="nav('scan')">⟡ &nbsp;Scanner signal</button>
+      <button class="ni" onclick="nav('ptch')">✦ &nbsp;Générateur pitch</button>
+    </nav>
+    <div class="sb-ft">
+      <div class="sb-ft-t" id="sb-date">Chargement...<br>IA : Claude Sonnet 4 + Gemini<br><span style="margin-top:4px;display:block"><span class="kbd">N</span> Nouveau signal &nbsp;·&nbsp; <span class="kbd">S</span> Suivi</span></div>
+      <div style="font-family:var(--mo);font-size:9px;color:var(--m2);padding:6px 12px 0;letter-spacing:1px" id="sync-status">○ Chargement...</div>
+      <div style="padding:6px 12px 8px">
+        <button class="btn bg bsm" style="width:100%;justify-content:center;font-size:9px;letter-spacing:1px;font-family:var(--mo)" onclick="SYNC_MODE==='sheets'?loadFromSheets():toast('Configurez GS_CSV_URL d\'abord','error')" title="Forcer la synchronisation avec Google Sheets">↻ SYNC SHEETS</button>
+      </div>
+    </div>
+  </aside>
+  <main class="mn">
+    <div class="tb">
+      <div class="tbt" id="tb-t">Dashboard</div>
+      <div class="tbd">
+        <button class="btn bs bsm" onclick="nav('scan')">⟡ Scanner</button>
+        <button class="btn bp bsm" onclick="openAdd()">+ Signal</button>
+      </div>
+    </div>
+    <div class="pc">
+
+      <!-- DASHBOARD -->
+      <div class="pg on" id="pg-dash">
+        <div class="kg">
+          <div class="kc cr"><div class="kl">MOMENT IDÉAL</div><div class="kv" id="k-r">0</div><div class="ks">🔴 90–149 jours</div></div>
+          <div class="kc co"><div class="kl">COMMENCER CONTACT</div><div class="kv" id="k-o">0</div><div class="ks">🟠 45–89 jours</div></div>
+          <div class="kc ca"><div class="kl">SUIVRE</div><div class="kv" id="k-a">0</div><div class="ks">🟡 21–44 jours</div></div>
+          <div class="kc cg"><div class="kl">CONTACTÉS</div><div class="kv" id="k-c">0</div><div class="ks">Ce mois</div></div>
+          <div class="kc ck"><div class="kl">PROB. STAFFÉS</div><div class="kv" id="k-k">0</div><div class="ks">⚫ ≥ 150 jours</div></div>
+        </div>
+        <div style="margin-bottom:26px">
+          <div class="sh"><div class="st">Signaux prioritaires</div><button class="btn bg bsm" onclick="nav('sig')">Voir tous →</button></div>
+          <div class="tw"><table class="tbl" style="table-layout:auto"><thead><tr><th>Entreprise</th><th>Signal</th><th>Âge</th><th>Urgence</th><th>Contact</th><th>Statut</th></tr></thead><tbody id="pt-b"></tbody></table></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px">
+          <div class="tw" style="padding:18px"><div class="st" style="margin-bottom:14px">Signaux par secteur</div><div id="sec-ch"></div></div>
+          <div class="tw" style="padding:18px"><div class="st" style="margin-bottom:14px">Pipeline commercial</div><div id="pip-ch"></div></div>
+        </div>
+      </div>
+
+      <!-- SIGNAUX -->
+      <div class="pg" id="pg-sig">
+        <div style="background:var(--b3);border:1px solid var(--br);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:var(--mu);line-height:1.6">
+          <strong style="color:var(--tx)">Guide des actions :</strong>
+          <span class="tooltip" style="margin-left:8px"><span class="help">?</span><span class="tt">Chaque signal représente une opportunité commerciale. Le tableau se met à jour automatiquement chaque jour — l'âge et le statut d'urgence évoluent sans intervention manuelle.</span></span>
+          &nbsp;
+          <span style="background:var(--b4);border:1px solid var(--br);border-radius:5px;padding:2px 7px;font-family:var(--mo);font-size:10px">○ Voir</span> Ouvre le détail complet du signal avec les contacts et le pitch s'il existe &nbsp;·&nbsp;
+          <span style="background:var(--b4);border:1px solid var(--br);border-radius:5px;padding:2px 7px;font-family:var(--mo);font-size:10px">✎ Éditer</span> Modifie toutes les infos du signal (dont le statut d'urgence manuellement) &nbsp;·&nbsp;
+          <span style="background:var(--rs);border:1px solid var(--rb);border-radius:5px;padding:2px 7px;font-family:var(--mo);font-size:10px;color:var(--red)">✦ Pitch</span> Pré-remplit le générateur de pitch IA pour ce signal &nbsp;·&nbsp;
+          <span style="background:var(--as);border:1px solid var(--ab);border-radius:5px;padding:2px 7px;font-family:var(--mo);font-size:10px;color:var(--am)">ℹ</span> Les signaux marqués "Contacté" disparaissent ici et passent dans le <strong style="color:var(--tx)">Pipeline</strong>
+        </div>
+        <div class="fb">
+          <input class="fi2" type="text" placeholder="🔍  Rechercher..." id="srch" oninput="renderSig()">
+          <select class="fs2" id="furg" onchange="renderSig()">
+            <option value="">Toutes urgences</option>
+            <option value="ur">🔴 Moment idéal</option>
+            <option value="uo">🟠 Commencer contact</option>
+            <option value="ua">🟡 Suivre</option>
+            <option value="ug">🟢 Trop récent</option>
+            <option value="uk">⚫ Prob. staffé</option>
+          </select>
+          <select class="fs2" id="ftype" onchange="renderSig()">
+            <option value="">Tous types</option>
+            <option value="CLIENT">Client</option>
+            <option value="ANCIEN CLIENT">Ancien client</option>
+            <option value="Prospect">Prospect</option>
+          </select>
+          <select class="fs2" id="fcnt" onchange="renderSig()">
+            <option value="">Tous</option>
+            <option value="Oui">Contacté</option>
+            <option value="Non">Non contacté</option>
+          </select>
+          <div style="margin-left:auto"><button class="btn bp bsm" onclick="openAdd()">+ Nouveau signal</button></div>
+        </div>
+        <div class="tw"><table class="tbl" style="table-layout:fixed"><colgroup><col style="width:42px"><col style="width:86px"><col style="width:150px"><col style="width:110px"><col><col style="width:80px"><col style="width:52px"><col style="width:130px"><col style="width:80px"><col style="width:90px"><col style="width:110px"></colgroup><thead><tr>
+          <th>N°</th>
+          <th>Date</th>
+          <th>Entreprise</th>
+          <th>Type</th>
+          <th>Signal</th>
+          <th>Source</th>
+          <th>Âge</th>
+          <th>Urgence</th>
+          <th>Contacts</th>
+          <th>Contacté</th>
+          <th>Actions</th>
+        </tr></thead><tbody id="sig-b"></tbody></table></div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="pg" id="pg-pipe">
+        <div style="color:var(--mu);font-size:13px;margin-bottom:10px">Vue Kanban — <strong style="color:var(--tx)">glisse une carte</strong> pour changer son statut · chaque signal est dans une seule colonne</div>
+        <div class="pc_" id="kban"></div>
+      </div>
+
+      <!-- SUIVIS -->
+      <div class="pg" id="pg-suiv">
+        <div class="pg-header">
+          <div class="pg-header-info">
+            <div class="pg-title">◉ Suivis de contact</div>
+            <div class="pg-desc">Signaux contactés — suivi de l'opportunité commerciale</div>
+          </div>
+          <button class="btn bp bsm" onclick="openAddSuiv()">+ Nouveau suivi</button>
+        </div>
+        <div class="tw"><table class="tbl" style="table-layout:fixed"><colgroup><col style="width:160px"><col><col style="width:170px"><col style="width:80px"><col style="width:70px"><col style="width:90px"><col style="width:90px"><col style="width:100px"><col style="width:160px"></colgroup><thead><tr><th>Entreprise</th><th>Signal</th><th>Contact</th><th>Réponse</th><th>RDV</th><th>Opportunité</th><th>Résultat</th><th>Dernier contact</th><th>Actions</th></tr></thead><tbody id="suiv-b"></tbody></table></div>
+      </div>
+
+      <!-- HISTORIQUE -->
+      <div class="pg" id="pg-hist">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+          <div>
+            <div style="font-size:17px;font-weight:700;margin-bottom:3px">◑ Historique des opportunités</div>
+            <div style="color:var(--mu);font-size:13px">Opportunités clôturées (gagnées ou perdues) — hors pipeline actif</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <select class="fs2" id="h-filt" onchange="renderHist()">
+              <option value="">Tout</option>
+              <option value="GO">✓ Gagnées</option>
+              <option value="KO">✗ Perdues</option>
+            </select>
+          </div>
+        </div>
+        <div id="k-hist-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px"></div>
+        <div id="hist-list"></div>
+      </div>
+
+      <!-- SCANNER -->
+      <div class="pg" id="pg-scan">
+        <div class="sw">
+          <div class="sc">
+            <div style="font-size:17px;font-weight:700;margin-bottom:3px">⟡ Scanner un signal</div>
+            <div style="color:var(--mu);font-size:13px;margin-bottom:18px">Analyse IA · Verdict GO / NO-GO / AMBIGU + scores de pertinence pour UX Republic</div>
+            <div class="fg"><label class="fl">Offre d'emploi ou signal à analyser</label><textarea class="fta" id="sc-in" style="min-height:150px;font-family:var(--mo);font-size:12px" placeholder="Colle le texte complet de l'offre ou décris le signal observé..."></textarea></div>
+            <button class="btn bp" id="sc-btn" onclick="runScan()" style="width:100%;justify-content:center"><span id="sc-t">⟡ Analyser avec Claude</span></button>
+          </div>
+          <div id="sc-res"></div>
+        </div>
+      </div>
+
+      <!-- PITCH -->
+      <div class="pg" id="pg-ptch">
+        <div class="sw">
+          <div class="sc">
+            <div style="font-size:17px;font-weight:700;margin-bottom:3px">✦ Générateur de pitch</div>
+            <div style="color:var(--mu);font-size:13px;margin-bottom:18px">Email personnalisé + trame d'appel téléphonique — généré par Claude, adapté au signal</div>
+            <div class="fr2">
+              <div class="fg"><label class="fl">Entreprise *</label><input class="fi" id="p-co" type="text" placeholder="ex: Decathlon Pro"></div>
+              <div class="fg"><label class="fl">Contact cible</label><input class="fi" id="p-ct" type="text" placeholder="ex: Pierre Delcampe - Ecommerce Lead"></div>
+            </div>
+            <div class="fg"><label class="fl">Signal détecté *</label><input class="fi" id="p-sig" type="text" placeholder="ex: Recrute un Head of Product + Product Designer"></div>
+            <div class="fr2">
+              <div class="fg"><label class="fl">Secteur</label><input class="fi" id="p-sec" type="text" placeholder="ex: Sport / Retail"></div>
+              <div class="fg"><label class="fl">Contexte additionnel</label><input class="fi" id="p-ctx" type="text" placeholder="ex: Ancien client UXR, problème agence actuelle..."></div>
+            </div>
+            <button class="btn bp" id="pt-btn" onclick="runPitch()" style="width:100%;justify-content:center"><span id="pt-t">✦ Générer le pitch</span></button>
+          </div>
+          <div id="pt-res"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- MODAL ADD/EDIT -->
+<div class="mo" id="mo-sig">
+  <div class="md">
+    <div class="mh"><div class="mt" id="mo-t">Nouveau signal</div><button class="xb" onclick="closeMo('mo-sig')">✕</button></div>
+    <div class="mb">
+      <div class="fr2">
+        <div class="fg"><label class="fl">Entreprise *</label><input class="fi" id="f-co" type="text" placeholder="Nom de l'entreprise"></div>
+        <div class="fg"><label class="fl">Secteur</label><input class="fi" id="f-sec" type="text" placeholder="Fintech, Média, Retail..."></div>
+      </div>
+      <div class="fr2">
+        <div class="fg">
+          <label class="fl">Type (Prospect / Client / Ancien client)</label>
+          <select class="fse" id="f-type">
+            <option value="Prospect">Prospect</option>
+            <option value="CLIENT">Client actuel</option>
+            <option value="ANCIEN CLIENT">Ancien client</option>
+          </select>
+          <div style="font-size:10px;color:var(--mu);margin-top:4px">Le type se met aussi à jour depuis la base clients Agence Lille (colonne B du fichier Excel de référence)</div>
+        </div>
+        <div class="fg"><label class="fl">Date de saisie</label><input class="fi" id="f-date" type="date"></div>
+      </div>
+      <div class="fg"><label class="fl">Signal détecté *</label><input class="fi" id="f-sig" type="text" placeholder="ex: Recrute un Product Owner avec compétences UX"></div>
+      <div class="fr2">
+        <div class="fg"><label class="fl">Source</label><select class="fse" id="f-src"><option>LinkedIn</option><option>Presse</option><option>Réseau</option><option>Site carrières</option><option>Recommandation</option><option>Autre</option></select></div>
+        <div class="fg"><label class="fl">Contacté ?</label><select class="fse" id="f-cnt"><option value="Non">Non</option><option value="Oui">Oui</option><option value="En attente">En attente</option></select></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Contact(s) identifié(s) — <span style="color:var(--m2)">Tapez un nom et appuyez sur Entrée pour ajouter</span></label>
+        <div class="tag-box" id="f-cts-box" onclick="document.getElementById('f-cts-inp').focus()">
+          <input class="tag-inp" id="f-cts-inp" type="text" placeholder="Prénom Nom - Titre…" autocomplete="off">
+        </div>
+        <input type="hidden" id="f-cts">
+      </div>
+      <div class="fg"><label class="fl">Action à mener</label><input class="fi" id="f-act" type="text"></div>
+      <div class="fg">
+        <label class="fl">Statut d'urgence <span style="color:var(--am)">(automatique — modifiable manuellement)</span></label>
+        <select class="fse" id="f-urg">
+          <option value="auto">🔄 Automatique (calculé depuis la date)</option>
+          <option value="ug">🟢 Trop récent (forcer)</option>
+          <option value="ua">🟡 Suivre l'entreprise (forcer)</option>
+          <option value="uo">🟠 Commencer la prise de contact (forcer)</option>
+          <option value="ur">🔴 Moment idéal pour contacter (forcer)</option>
+          <option value="uk">⚫ Probablement déjà staffé (forcer)</option>
+        </select>
+        <div style="font-size:10px;color:var(--mu);margin-top:4px">Par défaut, le statut est calculé automatiquement. Sélectionner "forcer" pour l'imposer manuellement.</div>
+      </div>
+      <div class="fg"><label class="fl">Notes / Suivi</label><textarea class="fta" id="f-notes" style="min-height:65px"></textarea></div>
+      <div class="fr2">
+        <div class="fg"><label class="fl">Lien source (URL)</label><input class="fi" id="f-url" type="text" placeholder="https://..."></div>
+        <div class="fg"><label class="fl">Date dernier contact <span style="color:var(--mu)">(optionnel)</span></label><input class="fi" id="f-last" type="date"></div>
+      </div>
+    </div>
+    <div class="mf"><button class="btn bs" onclick="closeMo('mo-sig')">Annuler</button><button class="btn bp" onclick="saveSig()">Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL DETAIL -->
+<div class="mo" id="mo-det">
+  <div class="md" style="width:min(760px,95vw)">
+    <div class="mh"><div class="mt" id="dt-t">Signal</div><button class="xb" onclick="closeMo('mo-det')">✕</button></div>
+    <div class="mb" id="dt-b"></div>
+    <div class="mf"><button class="btn bg" onclick="closeMo('mo-det')">Fermer</button><button class="btn bs" id="dt-ed">✎ Modifier</button><button class="btn bp" id="dt-pt">✦ Générer pitch</button></div>
+  </div>
+</div>
+
+<!-- MODAL JOURNAL -->
+<div class="mo" id="mo-jn">
+  <div class="md" style="width:min(580px,95vw)">
+    <div class="mh"><div class="mt" id="jn-t">Journal</div><button class="xb" onclick="closeMo('mo-jn')">✕</button></div>
+    <div class="mb">
+      <div style="font-family:var(--mo);font-size:10px;color:var(--mu);letter-spacing:1px;margin-bottom:10px">DATE DERNIER CONTACT</div>
+      <input class="fi" id="jn-last" type="date" style="margin-bottom:16px">
+      <div style="font-family:var(--mo);font-size:10px;color:var(--mu);letter-spacing:1px;margin-bottom:8px">JOURNAL DE BORD</div>
+      <div id="jn-entries" class="jn-wrap"></div>
+      <div class="jn-add">
+        <input class="jn-inp" id="jn-inp" type="text" placeholder="Ajouter une note (ex: Mail envoyé, Relance prévue...)">
+        <button class="btn bp bsm" onclick="addJnEntry()">+ Ajouter</button>
+      </div>
+    </div>
+    <div class="mf"><button class="btn bs" onclick="closeMo('mo-jn')">Fermer</button><button class="btn bp" onclick="saveJn()">Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL NOUVEAU / MODIFIER SUIVI -->
+<div class="mo" id="mo-suiv">
+  <div class="md" style="width:min(600px,95vw)">
+    <div class="mh"><div class="mt" id="suiv-mo-t">Nouveau suivi de contact</div><button class="xb" onclick="closeMo('mo-suiv')">✕</button></div>
+    <div class="mb">
+      <div class="fr2">
+        <div class="fg"><label class="fl">Entreprise *</label><input class="fi" id="sv-co" type="text" placeholder="Nom de l'entreprise"></div>
+        <div class="fg"><label class="fl">Signal / Contexte *</label><input class="fi" id="sv-sig" type="text" placeholder="ex: Recrute un PO avec UX"></div>
+      </div>
+      <div class="fg"><label class="fl">Contact(s)</label><input class="fi" id="sv-cts" type="text" placeholder="ex: Jean Dupont - Product Manager"></div>
+      <div class="fr2">
+        <div class="fg"><label class="fl">Réponse reçue ?</label><select class="fse" id="sv-rep"><option value="">—</option><option value="Non">Non</option><option value="En attente">En attente</option><option value="Oui">Oui</option></select></div>
+        <div class="fg"><label class="fl">RDV obtenu ?</label><select class="fse" id="sv-rdv"><option value="">—</option><option value="Non">Non</option><option value="Oui">Oui</option></select></div>
+      </div>
+      <div class="fr2">
+        <div class="fg"><label class="fl">Opportunité identifiée ?</label><select class="fse" id="sv-opp"><option value="">—</option><option value="Non">Non</option><option value="Oui">Oui</option></select></div>
+        <div class="fg"><label class="fl">Date dernier contact</label><input class="fi" id="sv-last" type="date"></div>
+      </div>
+      <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="sv-notes" style="min-height:65px" placeholder="Contexte, rappels, points clés..."></textarea></div>
+    </div>
+    <div class="mf"><button class="btn bs" onclick="closeMo('mo-suiv')">Annuler</button><button class="btn bp" onclick="saveSuivModal()">Enregistrer</button></div>
+  </div>
+</div>
+
+<div class="tst" id="tst"><span id="tst-d" style="color:var(--gr)">●</span><span id="tst-m"></span></div>
+
+<script>
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+
+function daysSince(d){const dt=new Date(d);dt.setHours(0,0,0,0);return Math.floor((TODAY-dt)/86400000)}
+
+function urgCalc(days){
+  if(days>=150) return 'uk';
+  if(days>=90) return 'ur';
+  if(days>=45) return 'uo';
+  if(days>=21) return 'ua';
+  return 'ug';
+}
+
+function urgLabel(cls){
+  const m={uk:'⚫ Prob. staffé',ur:'🔴 Moment idéal',uo:'🟠 Commencer contact',ua:'🟡 Suivre',ug:'🟢 Trop récent'};
+  return m[cls]||cls;
+}
+
+function getUrgCls(s){
+  if(s.urgForced && s.urgForced!=='auto') return s.urgForced;
+  return urgCalc(daysSince(s.date));
+}
+
+function urgPill(cls){return`<span class="up ${cls}">${urgLabel(cls)}</span>`}
+function cntBadge(c){if(c==='Oui')return'<span class="bge bg_">✓ Oui</span>';if(c==='En attente')return'<span class="bge ba_">⌛ Attente</span>';return'<span class="bge bm_">Non</span>'}
+
+function typeBadge(t){
+  if(t==='CLIENT')return'<span class="bge bg_">CLIENT</span>';
+  if(t==='ANCIEN CLIENT')return'<span class="bge bb_">ANCIEN CLIENT</span>';
+  return'<span class="bge bm_">Prospect</span>';
+}
+
+const CLIENTS_REF = ['KIABI','Decathlon'];
+const ANCIENS_CLIENTS_REF = ['Decathlon Pro','Rossel'];
+
+function inferType(co){
+  const n=co.toUpperCase();
+  if(CLIENTS_REF.some(c=>n.includes(c.toUpperCase()))) return 'CLIENT';
+  if(ANCIENS_CLIENTS_REF.some(c=>n.includes(c.toUpperCase()))) return 'ANCIEN CLIENT';
+  return null;
+}
+
+const SEED = [
+  {id:1,date:'2026-04-21',co:'Oney',sec:'Fintech',type:'Prospect',sig:'Recrute un PM Paiement - digital/app',src:'LinkedIn',cts:'Laurent Niny - UX UI Lead Designer / Thibault Danel - Product Owner / Sebastien Deswarte - Product Manager',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:2,date:'2026-04-06',co:'Rossel France',sec:'Média',type:'Prospect',sig:'Recrute un PO, avec compétences UX',src:'LinkedIn',cts:'Clémentine Godet - Product Owner / Hugo Lafarge - Product Owner Web / Edouard Lassus - Product owner',act:'Contacter',notes:'Remplacement de PO actuel qui quitte son poste',cnt:'Oui',pitch:`Bonjour [Prénom],\n\nJe me permets de vous contacter car j'ai suivi avec attention les récentes évolutions de vos équipes Produit chez Rossel France — notamment votre recherche pour un profil PO avec forte sensibilité UX.\n\nChez UX-Republic, nous accompagnons les groupes médias dans l'optimisation de leurs parcours digitaux. Ce recrutement témoigne d'une ambition forte sur l'expérience utilisateur, et c'est précisément là que nous intervenons.\n\nSeriez-vous disponible mardi ou jeudi prochain pour en discuter ?\n\nBien cordialement,\n[Ton Prénom] · UX-Republic`,call:`Cible : Clémentine Godet / Hugo Lafarge / Edouard Lassus\n\n1. Accroche\n"Bonjour, je vous appelle car j'ai vu que vous renforcez votre équipe produit avec un profil PO/UX."\n\n2. Valeur ajoutée\n"On accompagne beaucoup de groupes médias sur cette double culture Produit et Design."\n\n3. Question ouverte\n"Est-ce un nouveau projet ou un remplacement de poste existant ?"\n\n4. Closing\n"Je vous propose 20-30 min — café dans vos locaux ou visio rapide ?"\n\n5. Objection "on gère en interne"\n"Nous intervenons souvent en complément pour apporter une expertise pointue en audit UX ou Design System."`,url:'',urgForced:'auto'},
+  {id:3,date:'2026-04-15',co:'Exotec',sec:'Technologie industrielle',type:'Prospect',sig:'Recrute PO Koddex et SaaS',src:'LinkedIn',cts:'Justine Laloux - Lead Product Manager / Fabien Rondeau - Head of Product',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:4,date:'2026-04-16',co:'Razer',sec:'Gaming',type:'Prospect',sig:'Recrute Head of Product + Product Designer',src:'LinkedIn',cts:'Detjon Brahimaj - Technical PM / Sarah Alkibsy - Senior Business Development',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:5,date:'2026-04-16',co:'Vertbaudet',sec:'Textile',type:'Prospect',sig:'Recrute web designer 360',src:'LinkedIn',cts:'Karine Dusart - Head of Digital Product / Alexandra Morel - UX Manager',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:6,date:'2026-05-05',co:'Decathlon Pro',sec:'Sport',type:'ANCIEN CLIENT',sig:'Problème avec partenaire actuel SEO/SXO/GEO/GXO/CRO',src:'Réseau',cts:'Pierre Delcampe - Ecommerce & Marketing Leader',act:'Contacter Pierre Delcampe',notes:'Mail envoyé le 06/05/2026 + Relance faite',cnt:'Oui',pitch:`Bonjour Pierre,\n\nJ'ai récemment pris connaissance des enjeux rencontrés par Decathlon Pro autour des sujets SEO, SXO, GEO et CRO.\n\nChez UX Republic, nous avons structuré une nouvelle offre qui répond précisément à ces problématiques, en combinant performance business et expérience utilisateur.\n\nSeriez-vous disponible pour un échange rapide à ce sujet ?\n\nHugo · UX-Republic`,call:'',url:'',urgForced:'auto'},
+  {id:7,date:'2026-04-21',co:'Boulanger',sec:'Électroménager',type:'Prospect',sig:'Recrute Business Analyst / PO Service Informatique Magasin',src:'LinkedIn',cts:'',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:8,date:'2026-05-12',co:'AG2R La Mondiale',sec:'Assurance',type:'Prospect',sig:'Recrute Chef de produit',src:'LinkedIn',cts:'',act:'',notes:'Vérifier la pertinence',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:9,date:'2026-03-12',co:'BZB',sec:'Retail',type:'Prospect',sig:'Recrute chargé de développement digital & web',src:'LinkedIn',cts:'Bertrand Morange - Head of Style / Djamal Said - Directeur Omnicommerce',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:10,date:'2026-05-12',co:'Refectory',sec:'Restauration',type:'Prospect',sig:'Recrute PO',src:'LinkedIn',cts:'',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:11,date:'2026-05-06',co:'KIABI',sec:'Retail',type:'CLIENT',sig:'Recrute Product & Innovation Leader',src:'LinkedIn',cts:'Philippe Carpentier - Responsable parcours client / Kevin Matis - Product Manager',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:12,date:'2026-05-12',co:'JULES',sec:'Retail',type:'Prospect',sig:'Recrute Product Owner / Chef de projet IT Finance',src:'LinkedIn',cts:'',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+  {id:13,date:'2026-05-11',co:'ALSTOM',sec:'Transport',type:'Prospect',sig:'Recrute Responsable Solutions Digitales Immersives',src:'LinkedIn',cts:'',act:'',notes:'',cnt:'Non',pitch:'',call:'',url:'',urgForced:'auto'},
+];
+
+let suivis=[
+  {co:'Rossel France',sig:'Recrute un PO, avec compétences UX',cts:'Clémentine Godet / Hugo Lafarge / Edouard Lassus',rep:'Oui',rdv:'Non',opp:'Non',result:'KO'},
+  {co:'Decathlon Pro',sig:'Problème avec partenaire actuel SEO/SXO/GEO',cts:'Pierre Delcampe',rep:'En attente',rdv:'',opp:'',result:''},
+];
+
+let signals=[], editId=null, nextId=14;
+const LS_KEY='uxr_signals_v4', LS_SUIV='uxr_suivis_v3', LS_NID='uxr_nextid', LS_HIST='uxr_hist_v1';
+let histoire=[];
+
+// ═══════════════════════════════════════════════════════════════════════
+// ██  CONFIGURATION GOOGLE SHEETS  ████████████████████████████████████
+// ═══════════════════════════════════════════════════════════════════════
+//
+//  1. Publiez votre Google Sheet : Fichier → Partager → Publier sur le web
+//     → Feuille "Signaux" → Format CSV → Publier
+//  2. Copiez l'URL obtenue et collez-la ci-dessous
+//
+const GS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSOYMH2XXNk9iaKCAkokqJ4sw1FozRrAjNTnTXTNd5c3AB1CVtgszkSUTXjzzkDgzOwuRKNA8atmg_y/pub?gid=201369704&single=true&output=csv'; // ← COLLEZ ICI L'URL CSV DE VOTRE GOOGLE SHEET
+//
+//  Exemple :
+//  'https://docs.google.com/spreadsheets/d/VOTRE_ID/pub?gid=0&single=true&output=csv'
+//
+//  Mode de synchronisation :
+//  'sheets'  → Lit depuis Google Sheets (désactive l'écriture localStorage pour les signaux)
+//  'local'   → Mode localStorage classique (fallback automatique si GS_CSV_URL est vide)
+//
+const SYNC_MODE = GS_CSV_URL ? 'sheets' : 'local';
+//
+//  Intervalle de rafraîchissement automatique (ms). 0 = désactivé.
+const GS_REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
+// ═══════════════════════════════════════════════════════════════════════
+
+// ── MAPPING COLONNES CSV → OBJET SIGNAL ────────────────────────────────
+// Correspond EXACTEMENT aux colonnes générées par le script Apps Script.
+// Colonne A=0, B=1, C=2 … (index 0-based après parsing CSV)
+const COL = {
+  ID          : 0,   // A  — Identifiant numérique
+  DATE        : 1,   // B  — Date de détection (YYYY-MM-DD)
+  ENTREPRISE  : 2,   // C  — Nom de l'entreprise
+  SECTEUR     : 3,   // D  — Secteur d'activité
+  TYPE        : 4,   // E  — Prospect / CLIENT / ANCIEN CLIENT
+  SIGNAL      : 5,   // F  — Texte du signal / offre
+  SOURCE      : 6,   // G  — LinkedIn / Presse / Réseau…
+  CONTACTS    : 7,   // H  — "Prénom Nom - Titre / Prénom Nom - Titre"
+  ACTION      : 8,   // I  — Action à mener
+  NOTES       : 9,   // J  — Notes libres
+  CONTACTE    : 10,  // K  — Non / Oui / En attente
+  URG_FORCED  : 11,  // L  — auto / ug / ua / uo / ur / uk
+  URL         : 12,  // M  — Lien source
+  LAST_CONTACT: 13,  // N  — Date dernier contact (YYYY-MM-DD)
+  // ── Colonnes remplies automatiquement par Apps Script (Gemini) ───────
+  VERDICT     : 14,  // O  — GO / NO-GO / AMBIGU
+  SCORE_UX    : 15,  // P  — Score maturité UX (0-10)
+  SCORE_PERT  : 16,  // Q  — Score pertinence UXR (0-10)
+  SCORE_BDG   : 17,  // R  — Score potentiel budget (0-10)
+  PITCH_EMAIL : 18,  // S  — Corps email pitch (généré par Gemini)
+  PITCH_CALL  : 19,  // T  — Trame d'appel (générée par Gemini)
+  SYNTHESE    : 20,  // U  — Synthèse IA (2-3 phrases)
+  ANGLE       : 21,  // V  — Angle d'approche recommandé
+  HORIZON     : 22,  // W  — Horizon temporel
+  IA_DATE     : 23,  // X  — Date analyse IA (timestamp)
+};
+
+// ── PARSEUR CSV ROBUSTE ────────────────────────────────────────────────
+function parseCSV(text){
+  const rows=[];let cur=[],field='',inQ=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'&&text[i+1]==='"'){field+='"';i++;}
+      else if(c==='"'){inQ=false;}
+      else{field+=c;}
+    } else {
+      if(c==='"'){inQ=true;}
+      else if(c===','){cur.push(field);field='';}
+      else if(c==='\n'||c==='\r'){
+        cur.push(field);field='';
+        if(cur.some(x=>x.trim()))rows.push(cur);
+        cur=[];
+        if(c==='\r'&&text[i+1]==='\n')i++;
+      } else {field+=c;}
+    }
+  }
+  if(field||cur.length)cur.push(field);
+  if(cur.some(x=>x.trim()))rows.push(cur);
+  return rows;
+}
+
+// ── CONVERTIR UNE LIGNE CSV → OBJET SIGNAL ────────────────────────────
+function rowToSignal(row){
+  const g=(i)=>(row[i]||'').trim();
+  const id=parseInt(g(COL.ID))||0;
+  if(!id||!g(COL.ENTREPRISE)) return null;
+  return {
+    id,
+    date      : g(COL.DATE)||new Date().toISOString().slice(0,10),
+    co        : g(COL.ENTREPRISE),
+    sec       : g(COL.SECTEUR),
+    type      : g(COL.TYPE)||'Prospect',
+    sig       : g(COL.SIGNAL),
+    src       : g(COL.SOURCE)||'LinkedIn',
+    cts       : g(COL.CONTACTS),
+    act       : g(COL.ACTION),
+    notes     : g(COL.NOTES),
+    cnt       : g(COL.CONTACTE)||'Non',
+    urgForced : g(COL.URG_FORCED)||'auto',
+    url       : g(COL.URL),
+    lastContact: g(COL.LAST_CONTACT)||'',
+    // Champs IA (Gemini via Apps Script)
+    ia_verdict : g(COL.VERDICT),
+    ia_score_ux: parseFloat(g(COL.SCORE_UX))||0,
+    ia_score_p : parseFloat(g(COL.SCORE_PERT))||0,
+    ia_score_b : parseFloat(g(COL.SCORE_BDG))||0,
+    pitch      : g(COL.PITCH_EMAIL),
+    call       : g(COL.PITCH_CALL),
+    ia_synthese: g(COL.SYNTHESE),
+    ia_angle   : g(COL.ANGLE),
+    ia_horizon : g(COL.HORIZON),
+    ia_date    : g(COL.IA_DATE),
+    journal    : [],
+  };
+}
+
+// ── FUSION : données Sheets + journal/histoire locaux ─────────────────
+function mergeWithLocal(sheetsSignals){
+  const localRaw=localStorage.getItem(LS_KEY);
+  if(!localRaw) return sheetsSignals;
+  try{
+    const localSigs=JSON.parse(localRaw);
+    return sheetsSignals.map(s=>{
+      const loc=localSigs.find(l=>l.id===s.id);
+      if(!loc) return s;
+      // Priorité locale pour : journal, lastContact, urgForced manuel, cnt, notes
+      return {
+        ...s,
+        journal     : loc.journal||[],
+        lastContact : loc.lastContact||s.lastContact,
+        urgForced   : loc.urgForced!=='auto'?loc.urgForced:s.urgForced,
+        // NE PAS écraser le pitch IA de Sheets par une valeur locale vide
+        pitch       : s.pitch||loc.pitch||'',
+        call        : s.call||loc.call||'',
+      };
+    });
+  }catch(e){return sheetsSignals;}
+}
+
+// ── INDICATEUR DE SYNCHRO ─────────────────────────────────────────────
+function setSyncStatus(state, msg=''){
+  const el=document.getElementById('sync-status');
+  if(!el) return;
+  const icons={ok:'●',loading:'○',error:'⚠'};
+  const colors={ok:'var(--gr)',loading:'var(--am)',error:'var(--red)'};
+  el.innerHTML=`<span style="color:${colors[state]}">${icons[state]}</span> ${msg}`;
+}
+
+// ── CHARGEMENT DEPUIS GOOGLE SHEETS (CSV publié) ──────────────────────
+async function loadFromSheets(){
+  setSyncStatus('loading','Sync Sheets…');
+  try{
+    // Utiliser un proxy CORS si nécessaire (Sheets publiées sont CORS-friendly)
+    const url=GS_CSV_URL+'&t='+Date.now(); // cache-busting
+    const res=await fetch(url,{cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const text=await res.text();
+    const rows=parseCSV(text);
+    // Ignorer la ligne d'en-tête (ligne 1)
+    const parsed=rows.slice(1).map(rowToSignal).filter(Boolean);
+    if(parsed.length===0) throw new Error('Sheet vide ou format invalide');
+    const merged=mergeWithLocal(parsed);
+    signals=merged;
+    nextId=Math.max(...signals.map(s=>s.id),nextId)+1;
+    setSyncStatus('ok','Sheets · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}));
+    saveLocalCache(); // met à jour le cache localStorage
+    renderDash();renderSig();renderPipe();renderSuiv();
+  }catch(err){
+    console.error('[UXR Radar] Sheets sync error:',err);
+    setSyncStatus('error','Sheets offline — cache local');
+    loadFromLocal(); // fallback propre
+  }
+}
+
+// ── CHARGEMENT DEPUIS LOCALSTORAGE (mode local ou fallback) ───────────
+function loadFromLocal(){
+  try{
+    const raw=localStorage.getItem(LS_KEY);
+    if(raw){signals=JSON.parse(raw);nextId=parseInt(localStorage.getItem(LS_NID)||'14');}
+    else{signals=[...SEED];saveLocalCache();}
+    const rs=localStorage.getItem(LS_SUIV);
+    if(rs) suivis=JSON.parse(rs);
+    const rh=localStorage.getItem(LS_HIST);
+    if(rh) histoire=JSON.parse(rh);
+  }catch(e){signals=[...SEED];}
+}
+
+// ── POINT D'ENTRÉE PRINCIPAL ──────────────────────────────────────────
+async function load(){
+  // Charger d'abord le cache local (affichage immédiat)
+  loadFromLocal();
+  renderDash();renderSig();renderPipe();renderSuiv();renderHist();
+  // Puis synchroniser avec Sheets si configuré
+  if(SYNC_MODE==='sheets' && GS_CSV_URL){
+    await loadFromSheets();
+    // Rafraîchissement automatique
+    if(GS_REFRESH_INTERVAL>0){
+      setInterval(loadFromSheets, GS_REFRESH_INTERVAL);
+    }
+  } else {
+    setSyncStatus('ok','Mode local');
+  }
+}
+
+// ── SAUVEGARDE ────────────────────────────────────────────────────────
+// En mode Sheets : sauvegarde uniquement les données locales (journal,
+// history, suivis, overrides) — les signaux Sheets sont en lecture seule.
+// En mode local : sauvegarde tout.
+function save(){
+  try{
+    if(SYNC_MODE==='sheets'){
+      // Sauvegarder seulement les overrides locaux (journal, urgForced, lastContact)
+      const overrides=signals.map(s=>({
+        id:s.id, journal:s.journal||[], lastContact:s.lastContact||'',
+        urgForced:s.urgForced||'auto', cnt:s.cnt, notes:s.notes||'',
+        pitch:s.pitch||'', call:s.call||''
+      }));
+      localStorage.setItem(LS_KEY, JSON.stringify(overrides));
+    } else {
+      saveLocalCache();
+    }
+    localStorage.setItem(LS_NID, String(nextId));
+    localStorage.setItem(LS_SUIV, JSON.stringify(suivis));
+    localStorage.setItem(LS_HIST, JSON.stringify(histoire));
+  }catch(e){}
+}
+
+function saveLocalCache(){
+  try{
+    localStorage.setItem(LS_KEY, JSON.stringify(signals));
+    localStorage.setItem(LS_NID, String(nextId));
+  }catch(e){}
+}
+
+const PTITLES={dash:'Dashboard',sig:'Signaux marché',pipe:'Pipeline commercial',suiv:'Suivis de contact',hist:'Historique',scan:'Scanner signal',ptch:'Générateur de pitch'};
+function nav(p){
+  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(x=>x.classList.remove('on'));
+  document.getElementById('pg-'+p).classList.add('on');
+  document.querySelectorAll('.ni').forEach(x=>{if(x.getAttribute('onclick')?.includes("'"+p+"'"))x.classList.add('on')});
+  document.getElementById('tb-t').textContent=PTITLES[p]||p;
+  if(p==='dash')renderDash();
+  if(p==='sig')renderSig();
+  if(p==='pipe')renderPipe();
+  if(p==='suiv')renderSuiv();
+  if(p==='hist')renderHist();
+}
+
+function renderDash(){
+  // Exclure les signaux clôturés (archivés dans l'historique)
+  const actifs=signals.filter(s=>!isClotured(s));
+  const now=actifs.map(s=>({...s,days:daysSince(s.date),uc:getUrgCls(s)}));
+  document.getElementById('k-r').textContent=now.filter(s=>s.uc==='ur'&&s.cnt==='Non').length;
+  document.getElementById('k-o').textContent=now.filter(s=>s.uc==='uo'&&s.cnt==='Non').length;
+  document.getElementById('k-a').textContent=now.filter(s=>s.uc==='ua'&&s.cnt==='Non').length;
+  document.getElementById('k-c').textContent=now.filter(s=>s.cnt==='Oui'||s.cnt==='En attente').length;
+  document.getElementById('k-k').textContent=now.filter(s=>s.uc==='uk'&&s.cnt==='Non').length;
+  document.getElementById('bc').textContent=actifs.filter(s=>s.cnt!=='Oui'&&s.cnt!=='En attente').length;
+
+  const today=new Date();
+  document.getElementById('sb-date').innerHTML=today.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})+' · Données live<br>IA : Claude Sonnet 4<br><span style="margin-top:4px;display:block"><span class="kbd">N</span> Nouveau signal &nbsp;·&nbsp; <span class="kbd">S</span> Suivi</span>';
+
+  // Signaux prioritaires : non-contactés, non-clôturés, urgence rouge ou orange
+  const prio=now.filter(s=>{
+    if(s.cnt==='Oui'||s.cnt==='En attente') return false;
+    if(s.uc==='uk') return false;
+    return s.uc==='ur'||s.uc==='uo';
+  }).sort((a,b)=>b.days-a.days).slice(0,6);
+  document.getElementById('pt-b').innerHTML=prio.length?prio.map(s=>`
+    <tr onclick="openDet(${s.id})">
+      <td><div class="cc"><span class="cn">${s.co}</span><span class="cs">${s.sec}</span></div></td>
+      <td style="color:var(--mu)">${s.sig}</td>
+      <td style="font-family:var(--mo)">${s.days}j</td>
+      <td>${urgPill(s.uc)}</td>
+      <td style="color:var(--mu)">${s.cts?s.cts.split('/')[0].trim():'—'}</td>
+      <td>${cntBadge(s.cnt)}</td>
+    </tr>`).join(''):`<tr><td colspan="6" style="text-align:center;color:var(--mu);padding:24px">Aucun signal prioritaire actif</td></tr>`;
+
+  // Secteurs — signaux actifs seulement
+  const secs={};now.forEach(s=>{secs[s.sec]=(secs[s.sec]||0)+1});
+  const maxS=Math.max(...Object.values(secs),1);
+  document.getElementById('sec-ch').innerHTML=Object.entries(secs).sort((a,b)=>b[1]-a[1]).map(([s,c])=>`
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px">
+      <div style="font-size:12px;min-width:100px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s}</div>
+      <div style="flex:1;height:5px;background:var(--b2r);border-radius:3px"><div style="height:100%;width:${c/maxS*100}%;background:var(--red);border-radius:3px"></div></div>
+      <div style="font-family:var(--mo);font-size:11px;color:var(--mu);min-width:14px;text-align:right">${c}</div>
+    </div>`).join('');
+
+  // Pipeline — actifs uniquement
+  const stages=[
+    {l:'Nouveaux (< 21j)',c:now.filter(s=>s.uc==='ug'&&s.cnt==='Non').length,col:'var(--mu)'},
+    {l:'À suivre (21–44j)',c:now.filter(s=>s.uc==='ua'&&s.cnt==='Non').length,col:'var(--am)'},
+    {l:'Contact en cours',c:now.filter(s=>s.cnt==='Oui'||s.cnt==='En attente').length,col:'var(--bl)'},
+    {l:'Gagnés',c:histoire.filter(h=>h.result==='GO').length,col:'var(--gr)'},
+    {l:'Perdus / Staffés',c:histoire.filter(h=>h.result!=='GO').length,col:'var(--red)'},
+  ];
+  const maxC=Math.max(...stages.map(s=>s.c),1);
+  document.getElementById('pip-ch').innerHTML=stages.map(s=>`
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px">
+      <div style="font-size:12px;min-width:120px;color:var(--mu)">${s.l}</div>
+      <div style="flex:1;height:5px;background:var(--b2r);border-radius:3px"><div style="height:100%;width:${s.c/maxC*100}%;background:${s.col};border-radius:3px"></div></div>
+      <div style="font-family:var(--mo);font-size:11px;color:var(--mu);min-width:14px;text-align:right">${s.c}</div>
+    </div>`).join('');
+}
+
+function renderSig(){
+  const srch=(document.getElementById('srch')?.value||'').toLowerCase();
+  const furg=document.getElementById('furg')?.value||'';
+  const ftype=document.getElementById('ftype')?.value||'';
+  const fcnt=document.getElementById('fcnt')?.value||'';
+  // Signaux contactés disparaissent des "Signaux marché" (ils sont dans le pipe)
+  let rows=signals.map(s=>({...s,days:daysSince(s.date),uc:getUrgCls(s)}))
+    .filter(s=>s.cnt!=='Oui'&&s.cnt!=='En attente'&&!isClotured(s));
+  if(srch)rows=rows.filter(s=>s.co.toLowerCase().includes(srch)||s.sig.toLowerCase().includes(srch)||s.sec.toLowerCase().includes(srch));
+  if(furg)rows=rows.filter(s=>s.uc===furg);
+  if(ftype)rows=rows.filter(s=>s.type===ftype);
+  if(fcnt)rows=rows.filter(s=>s.cnt===fcnt);
+  rows.sort((a,b)=>b.days-a.days);
+  document.getElementById('sig-b').innerHTML=rows.length?rows.map(s=>`
+    <tr class="clickable-row" onclick="openDet(${s.id})">
+      <td style="font-family:var(--mo);color:var(--mu)">${s.id}</td>
+      <td style="font-family:var(--mo);color:var(--mu);font-size:11px">${s.date}</td>
+      <td><div class="cc"><span class="cn" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block">${s.co}</span><span class="cs">${s.sec}</span></div></td>
+      <td>${typeBadge(s.type)}${s.ia_verdict?`<span class="bge ${s.ia_verdict==='GO'?'bg_':s.ia_verdict==='NO-GO'?'br_':'ba_'}" style="margin-left:3px;font-size:9px">${s.ia_verdict}</span>`:''}</td>
+      <td style="color:var(--mu)">${s.sig}</td>
+      <td><span class="tg">${s.src}</span></td>
+      <td style="font-family:var(--mo);font-weight:600;color:${s.uc==='ur'?'var(--red)':s.uc==='uo'?'var(--or)':s.uc==='uk'?'#888':'var(--tx)'}">${s.days}j</td>
+      <td>${urgPill(s.uc)}${s.urgForced&&s.urgForced!=='auto'?'<span style="font-family:var(--mo);font-size:9px;color:var(--mu);margin-left:4px">✎</span>':''}</td>
+      <td>${s.cts?(()=>{const cts=s.cts.split('/').map(c=>c.trim()).filter(Boolean);return`<span class="chips-count" title="${s.cts}">◉ ${cts.length}</span>`})():'<span style="color:var(--m2)">—</span>'}</td>
+      <td>${cntBadge(s.cnt)}</td>
+      <td onclick="event.stopPropagation()"><div class="ra">
+        <div class="tooltip"><button class="btn bg bsm" onclick="openEdit(${s.id})" style="padding:4px 7px" title="Modifier">✎</button><span class="tt">Modifier le signal, ses contacts, son statut</span></div>
+        <div class="tooltip"><button class="btn bsm" style="background:var(--rs);color:var(--red);border:1px solid var(--rb);padding:4px 7px" onclick="openPitchFor(${s.id})" title="Générer pitch">✦</button><span class="tt">Générer un email + trame d'appel</span></div>
+        <div class="tooltip"><button class="btn bsm" style="background:rgba(100,100,100,.12);color:#888;border:1px solid rgba(100,100,100,.25);padding:4px 7px" onclick="deleteSig(${s.id})" title="Supprimer">✕</button><span class="tt">Supprimer définitivement ce signal</span></div>
+      </div></td>
+    </tr>`).join(''):`<tr><td colspan="11"><div class="empty-state"><div class="empty-icon">◎</div><div class="empty-text">Aucun signal trouvé</div><div class="empty-sub">Ajustez les filtres ou créez un nouveau signal</div></div></td></tr>`;
+}
+
+// Un signal est clôturé ET retiré du pipe si PIPELINE_DAYS sont écoulés depuis la clôture
+function isClotured(s){
+  const h=histoire.find(x=>x.sigId===s.id);
+  if(!h) return false;
+  if(!h.closedAt) return true; // ancien format sans closedAt → retiré immédiatement
+  return daysSince(h.closedAt)>=PIPELINE_DAYS;
+}
+
+// Vrai si archivé mais encore visible dans le pipe (délai non écoulé)
+function isClosedInPipe(s){
+  const h=histoire.find(x=>x.sigId===s.id);
+  if(!h||!h.closedAt) return false;
+  return daysSince(h.closedAt)<PIPELINE_DAYS;
+}
+
+function getPipeStage(s){
+  if(isClotured(s)) return null; // délai écoulé → historique uniquement
+  const h=histoire.find(x=>x.sigId===s.id);
+  if(h){ // clôturé mais encore dans le pipe (délai non écoulé)
+    return h.result==='GO'?'gagne':h.result==='STAFFÉ'?'staffe':'perdu';
+  }
+  const suiv=suivis.find(x=>x.co===s.co);
+  if(s.cnt==='Oui'||s.cnt==='En attente'){
+    if(suiv){
+      if(suiv.result==='KO') return 'perdu';
+      if(suiv.result==='GO') return 'gagne';
+      if(suiv.rdv==='Oui') return 'rdv';
+      if(suiv.rep==='Oui') return 'rep';
+      return 'contact';
+    }
+    return 'contact';
+  }
+  if(s.uc==='uk') return 'staffe';
+  if(s.uc==='ur'||s.uc==='uo'||s.uc==='ua') return 'fenetre';
+  return 'nouveau';
+}
+
+// Mapping stage → colonnes pipe
+const STAGE_META={
+  nouveau:  {lbl:'NOUVEAUX SIGNAUX',    col:'var(--mu)'},
+  fenetre:  {lbl:'FENÊTRE DE CONTACT',  col:'var(--or)'},
+  contact:  {lbl:'EN COURS DE CONTACT', col:'var(--bl)'},
+  rep:      {lbl:'RÉPONSES REÇUES',     col:'var(--am)'},
+  rdv:      {lbl:'RDV PRIS',            col:'#4f8ef7'},
+  gagne:    {lbl:'OPPORTUNITÉS GAGNÉES',col:'var(--gr)'},
+  perdu:    {lbl:'OPPORTUNITÉS PERDUES',col:'var(--red)'},
+  staffe:   {lbl:'PROB. STAFFÉS',       col:'#666'},
+};
+
+const PIPELINE_DAYS = 3; // jours pendant lesquels le signal reste visible dans le pipe après clôture
+
+function archiveToHist(s, result){
+  // Évite les doublons
+  if(histoire.some(h=>h.sigId===s.id)) return;
+  const suiv=suivis.find(x=>x.co===s.co);
+  histoire.push({
+    sigId:s.id, co:s.co, sig:s.sig, cts:s.cts||'',
+    sec:s.sec||'', type:s.type||'Prospect',
+    result, date:new Date().toISOString().slice(0,10),
+    closedAt:new Date().toISOString().slice(0,10),
+    rdv:suiv?.rdv||'', rep:suiv?.rep||'', notes:s.notes||'',
+    journal:s.journal||[]
+  });
+}
+
+function applyDrop(sigId, targetStage){
+  const s=signals.find(x=>x.id===sigId);
+  if(!s) return;
+  // Si le signal est déjà clôturé (dans l'historique), ignorer le drop
+  if(histoire.some(h=>h.sigId===sigId)){
+    toast('Utilise le bouton "Annuler la clôture" pour remettre ce signal dans le pipeline','error');
+    return;
+  }
+  let suiv=suivis.find(x=>x.co===s.co);
+
+  if(targetStage==='nouveau'){
+    s.cnt='Non'; s.urgForced='auto';
+    if(suiv) suivis=suivis.filter(x=>x.co!==s.co);
+  } else if(targetStage==='fenetre'){
+    s.cnt='Non'; s.urgForced='uo';
+    if(suiv) suivis=suivis.filter(x=>x.co!==s.co);
+  } else if(targetStage==='contact'){
+    s.cnt='Oui';
+    if(!suiv){suivis.push({co:s.co,sig:s.sig,cts:s.cts,rep:'',rdv:'',opp:'',result:''});suiv=suivis[suivis.length-1];}
+    else {suiv.result='';suiv.rdv='';suiv.rep='';}
+  } else if(targetStage==='rep'){
+    s.cnt='Oui';
+    if(!suiv){suivis.push({co:s.co,sig:s.sig,cts:s.cts,rep:'Oui',rdv:'',opp:'',result:''});suiv=suivis[suivis.length-1];}
+    else {suiv.rep='Oui';suiv.result='';}
+  } else if(targetStage==='rdv'){
+    s.cnt='Oui';
+    if(!suiv){suivis.push({co:s.co,sig:s.sig,cts:s.cts,rep:'Oui',rdv:'Oui',opp:'',result:''});suiv=suivis[suivis.length-1];}
+    else {suiv.rep='Oui';suiv.rdv='Oui';suiv.result='';}
+  } else if(targetStage==='gagne'){
+    s.cnt='Oui';
+    if(!suiv){suivis.push({co:s.co,sig:s.sig,cts:s.cts,rep:'Oui',rdv:'Oui',opp:'Oui',result:'GO'});suiv=suivis[suivis.length-1];}
+    else {suiv.result='GO';suiv.opp='Oui';}
+    archiveToHist(s,'GO');
+  } else if(targetStage==='perdu'){
+    s.cnt='Oui';
+    if(!suiv){suivis.push({co:s.co,sig:s.sig,cts:s.cts,rep:'',rdv:'',opp:'Non',result:'KO'});suiv=suivis[suivis.length-1];}
+    else {suiv.result='KO';suiv.opp='Non';}
+    archiveToHist(s,'KO');
+  } else if(targetStage==='staffe'){
+    s.cnt='Non'; s.urgForced='uk';
+    if(suiv) suivis=suivis.filter(x=>x.co!==s.co);
+    archiveToHist(s,'STAFFÉ');
+  }
+  save(); renderPipe(); renderSuiv(); renderSig(); renderDash();
+  toast(s.co+' → '+STAGE_META[targetStage].lbl,'success');
+}
+
+let dragSigId=null;
+
+function renderPipe(){
+  const now=signals.map(s=>({...s,days:daysSince(s.date),uc:getUrgCls(s)}));
+  const cols=Object.entries(STAGE_META).map(([id,m])=>({id,lbl:m.lbl,col:m.col,items:[]}));
+  now.forEach(s=>{
+    const stage=getPipeStage(s);
+    if(!stage) return; // clôturé → historique uniquement
+    const col=cols.find(c=>c.id===stage);
+    if(col) col.items.push(s);
+  });
+  const terminal=new Set(['gagne','perdu','staffe']);
+  document.getElementById('kban').style.gridTemplateColumns='repeat(8,minmax(0,1fr))';
+  document.getElementById('kban').innerHTML=`
+    <div class="drag-hint" style="grid-column:1/-1">↔ Glisse une carte pour changer son statut · Déposer dans Gagné / Perdu / Staffé archive dans l'Historique</div>
+    `+cols.map(col=>`
+    <div class="kc2" id="col-${col.id}"
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="this.classList.remove('drag-over');applyDrop(dragSigId,'${col.id}')">
+      <div class="kh" style="color:${col.col}">${col.lbl}<span class="kn">${col.items.length}</span></div>
+      ${col.items.length?col.items.map(s=>{
+        const hist=histoire.find(x=>x.sigId===s.id);
+        const isClosed=!!hist;
+        const daysLeft=hist?.closedAt?Math.max(0,PIPELINE_DAYS-daysSince(hist.closedAt)):0;
+        return`
+        <div class="ka" draggable="${isClosed?'false':'true'}"
+          ondragstart="${isClosed?'':'dragSigId='+s.id+';this.classList.add(\'dragging\')'}"
+          ondragend="this.classList.remove('dragging')"
+          style="${isClosed?'opacity:.72;border-style:dashed':''}">
+          <div class="kco" onclick="openDet(${s.id})" style="cursor:pointer;margin-bottom:3px">${s.co}</div>
+          <div class="ksi">${s.sig}</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px">${urgPill(s.uc)} ${typeBadge(s.type)}</div>
+          ${isClosed?`<div style="font-family:var(--mo);font-size:9px;color:var(--mu);margin-bottom:6px;padding:3px 7px;background:var(--b4);border-radius:5px;border:1px solid var(--br)">⏱ Archivé dans l'historique · disparaît du pipe dans ${daysLeft}j</div>`:''}
+          ${isClosed
+            ? `<button class="btn bsm" style="background:var(--as);color:var(--am);border:1px solid var(--ab);padding:3px 7px;font-size:10px;width:100%;margin-bottom:3px" onclick="event.stopPropagation();undoCloture(${s.id})">↩ Annuler la clôture</button>`
+            : terminal.has(col.id)
+              ? `<button class="btn bsm" style="background:var(--gs);color:var(--gr);border:1px solid var(--gb);padding:3px 7px;font-size:10px;width:100%;margin-bottom:3px" onclick="event.stopPropagation();archiveFromPipe(${s.id},'${col.id}')">↗ Archiver dans Historique</button>`
+              : ''}
+          ${!isClosed?`<button class="btn bsm" style="background:rgba(100,100,100,.1);color:#888;border:1px solid rgba(100,100,100,.2);padding:3px 7px;font-size:10px;width:100%" onclick="event.stopPropagation();deleteSig(${s.id})">✕ Supprimer</button>`:''}
+        </div>`}).join(''):`<div style="color:var(--m2);font-size:12px;text-align:center;padding:20px 0">Aucun</div>`}
+    </div>`).join('');
+}
+
+function archiveFromPipe(sigId, stage){
+  const s=signals.find(x=>x.id===sigId);if(!s)return;
+  const result=stage==='gagne'?'GO':stage==='perdu'?'KO':'STAFFÉ';
+  if(histoire.some(h=>h.sigId===s.id)){toast(s.co+' déjà dans l\'Historique','error');return;}
+  archiveToHist(s,result);
+  save(); renderPipe(); renderSuiv(); renderSig(); renderDash();
+  toast(s.co+' archivé dans l\'Historique ✓','success');
+}
+
+function undoCloture(sigId){
+  const s=signals.find(x=>x.id===sigId);if(!s)return;
+  if(!confirm(`Annuler la clôture de "${s.co}" ? Le signal reviendra dans le pipeline actif.`)) return;
+  // Supprimer de l'historique
+  histoire=histoire.filter(h=>h.sigId!==sigId);
+  // Remettre le suivi actif
+  let suiv=suivis.find(x=>x.co===s.co);
+  if(suiv){ suiv.result=''; }
+  else { suivis.push({co:s.co,sig:s.sig,cts:s.cts||'',rep:'',rdv:'',opp:'',result:''}); }
+  // Garder le signal en "Oui" (contacté)
+  s.cnt='Oui';
+  save(); renderPipe(); renderSuiv(); renderSig(); renderDash(); renderHist();
+  toast(s.co+' remis dans le pipeline ↩','success');
+}
+
+function renderSuiv(){
+  // Only active suivis (not clôturés) — closed ones are in historique
+  const active=suivis.filter(s=>!s.result||s.result==='');
+  document.getElementById('suiv-b').innerHTML=active.length?active.map((s,i)=>{
+    const sig=signals.find(x=>x.co===s.co);
+    const lc=sig?.lastContact||'';
+    const sinceLC=lc?daysSince(lc):null;
+    const relance=sinceLC!==null&&sinceLC>7;
+    const realIdx=suivis.indexOf(s);
+    return`<tr class="clickable-row" onclick="sig?openDet(${sig?.id||0}):void(0)" style="${!sig?'cursor:default':''}">
+      <td onclick="${sig?'openDet('+(sig?.id||0)+')':`void(0)`}" style="cursor:${sig?'pointer':'default'}">
+        <div class="suiv-co">${s.co}${relance?`<span class="relance-alert" style="font-size:9px;padding:2px 6px">⏰ ${sinceLC}j</span>`:''}</div>
+        ${sig?`<div style="font-size:10px;color:var(--m2);font-family:var(--mo)">→ voir la fiche</div>`:''}
+      </td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${s.sig}">${s.sig}</td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${s.cts||''}">${s.cts||'—'}</td>
+      <td>${s.rep==='Oui'?'<span class="bge bg_">Oui</span>':s.rep==='En attente'?'<span class="bge ba_">Attente</span>':'<span class="bge bm_">Non</span>'}</td>
+      <td>${s.rdv==='Oui'?'<span class="bge bg_">Oui</span>':s.rdv==='Non'?'<span class="bge br_">Non</span>':'<span class="bge bm_">—</span>'}</td>
+      <td>${s.opp==='Oui'?'<span class="bge bg_">Oui</span>':s.opp==='Non'?'<span class="bge br_">Non</span>':'<span class="bge bm_">—</span>'}</td>
+      <td>${s.result?`<span class="bge ${s.result==='KO'?'br_':'bg_'}">${s.result}</span>`:'<span class="bge bm_">En cours</span>'}</td>
+      <td><span style="font-family:var(--mo);font-size:11px;color:var(--mu)">${lc||'—'}</span></td>
+      <td onclick="event.stopPropagation()"><div style="display:flex;gap:4px;flex-wrap:nowrap">
+        <button class="btn bg bsm" onclick="editSuivModal(${realIdx})" title="Modifier ce suivi">✎</button>
+        ${sig?`<button class="btn bg bsm" onclick="openEdit(${sig.id})" title="Modifier la fiche signal" style="color:var(--bl);border-color:rgba(79,142,247,.3)">⊞</button>`:''}
+        <button class="btn bp bsm" style="background:var(--gs);color:var(--gr);border:1px solid var(--gb)" onclick="clotureSuiv(${realIdx},'GO')">✓</button>
+        <button class="btn bsm" style="background:var(--rs);color:var(--red);border:1px solid var(--rb)" onclick="clotureSuiv(${realIdx},'KO')">✗</button>
+        <button class="btn bsm" style="background:rgba(100,100,100,.12);color:#888;border:1px solid rgba(100,100,100,.25)" onclick="deleteSuiv(${realIdx})">✕</button>
+      </div></td>
+    </tr>`;
+  }).join(''):`<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">◉</div><div class="empty-text">Aucun suivi actif</div><div class="empty-sub">Marquez des signaux comme "Contacté" ou créez un suivi directement</div></div></td></tr>`;
+}
+
+// ── TAG INPUT CONTACTS ────────────────────────────────────────────────
+let tagContacts=[];
+
+function setTagContacts(arr){
+  tagContacts=arr.slice();
+  renderTagContacts();
+}
+
+function renderTagContacts(){
+  const box=document.getElementById('f-cts-box');
+  const inp=document.getElementById('f-cts-inp');
+  // Remove existing chips
+  box.querySelectorAll('.tag-chip').forEach(x=>x.remove());
+  // Re-insert chips before the input
+  tagContacts.forEach((name,i)=>{
+    const chip=document.createElement('span');
+    chip.className='tag-chip';
+    chip.innerHTML=`${name}<button class="tag-chip-del" onclick="removeTagContact(${i})" title="Supprimer">✕</button>`;
+    box.insertBefore(chip,inp);
+  });
+  // Sync hidden input (store as "A / B / C" for backward compat)
+  document.getElementById('f-cts').value=tagContacts.join(' / ');
+}
+
+function removeTagContact(i){
+  tagContacts.splice(i,1);
+  renderTagContacts();
+}
+
+function addTagContactFromInput(){
+  const inp=document.getElementById('f-cts-inp');
+  const val=inp.value.trim();
+  if(!val) return;
+  tagContacts.push(val);
+  inp.value='';
+  renderTagContacts();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('f-cts-inp');
+  if(!inp) return;
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===','){ e.preventDefault(); addTagContactFromInput(); }
+    if(e.key==='Backspace'&&inp.value===''&&tagContacts.length>0){ tagContacts.pop(); renderTagContacts(); }
+  });
+});
+
+function openAdd(){
+  editId=null;
+  document.getElementById('mo-t').textContent='Nouveau signal';
+  ['f-co','f-sec','f-sig','f-act','f-notes','f-url','f-last'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('f-type').value='Prospect';
+  document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('f-src').value='LinkedIn';
+  document.getElementById('f-cnt').value='Non';
+  document.getElementById('f-urg').value='auto';
+  setTagContacts([]);
+  openMo('mo-sig');
+}
+
+document.getElementById('f-co').addEventListener('blur',()=>{
+  const co=document.getElementById('f-co').value.trim();
+  if(!co) return;
+  const inferred=inferType(co);
+  if(inferred){
+    document.getElementById('f-type').value=inferred;
+    toast('Type détecté depuis la base clients Agence Lille : '+inferred,'success');
+  }
+});
+
+function openEdit(id){
+  const s=signals.find(x=>x.id===id);if(!s)return;
+  editId=id;
+  document.getElementById('mo-t').textContent='Modifier — '+s.co;
+  document.getElementById('f-co').value=s.co;
+  document.getElementById('f-sec').value=s.sec;
+  document.getElementById('f-type').value=s.type;
+  document.getElementById('f-date').value=s.date;
+  document.getElementById('f-sig').value=s.sig;
+  document.getElementById('f-src').value=s.src;
+  document.getElementById('f-cnt').value=s.cnt;
+  // Charger les contacts en tags
+  const ctsArr=s.cts?s.cts.split('/').map(x=>x.trim()).filter(Boolean):[];
+  setTagContacts(ctsArr);
+  document.getElementById('f-act').value=s.act;
+  document.getElementById('f-notes').value=s.notes;
+  document.getElementById('f-url').value=s.url||'';
+  document.getElementById('f-last').value=s.lastContact||'';
+  document.getElementById('f-urg').value=s.urgForced||'auto';
+  openMo('mo-sig');
+}
+
+function saveSig(){
+  const co=document.getElementById('f-co').value.trim();
+  if(!co){toast("Renseigne le nom de l'entreprise",'error');return}
+  const coInferred=inferType(co);
+  const typeVal=coInferred||document.getElementById('f-type').value;
+  const data={co,sec:document.getElementById('f-sec').value.trim(),type:typeVal,date:document.getElementById('f-date').value,sig:document.getElementById('f-sig').value.trim(),src:document.getElementById('f-src').value,cnt:document.getElementById('f-cnt').value,cts:document.getElementById('f-cts').value.trim(),act:document.getElementById('f-act').value.trim(),notes:document.getElementById('f-notes').value.trim(),url:document.getElementById('f-url').value.trim(),lastContact:document.getElementById('f-last').value||'',urgForced:document.getElementById('f-urg').value,pitch:'',call:''};
+  if(editId){
+    const i=signals.findIndex(s=>s.id===editId);
+    signals[i]={...signals[i],...data,pitch:signals[i].pitch,call:signals[i].call,journal:signals[i].journal||[]};
+  } else {
+    signals.push({id:nextId++,...data,journal:[]});
+  }
+  if(data.cnt==='Oui'&&!suivis.find(s=>s.co===data.co)){
+    suivis.push({co:data.co,sig:data.sig,cts:data.cts,rep:'',rdv:'',opp:'',result:''});
+  }
+  save();closeMo('mo-sig');renderSig();renderDash();
+  toast(editId?'Signal mis à jour ✓':'Signal ajouté ✓','success');
+}
+
+function openDet(id){
+  const s=signals.find(x=>x.id===id);if(!s)return;
+  const days=daysSince(s.date);
+  const uc=getUrgCls(s);
+  const jn=s.journal||[];
+  const sinceContact=s.lastContact?daysSince(s.lastContact):null;
+  document.getElementById('dt-t').textContent=s.co+' — #'+s.id;
+  document.getElementById('dt-b').innerHTML=`
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap">
+      ${urgPill(uc)} ${typeBadge(s.type)}
+      <span style="font-family:var(--mo);font-size:11px;color:var(--mu)">${s.date} · ${days}j</span>
+      ${s.urgForced&&s.urgForced!=='auto'?'<span style="font-family:var(--mo);font-size:10px;color:var(--am);background:var(--as);border:1px solid var(--ab);padding:2px 7px;border-radius:5px">✎ statut forcé</span>':''}
+      <span style="margin-left:auto">${cntBadge(s.cnt)}</span>
+    </div>
+    ${s.lastContact?`<div class="det-section" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px">
+      <span style="font-family:var(--mo);font-size:10px;color:var(--mu)">DERNIER CONTACT</span>
+      <span style="font-family:var(--mo);font-size:12px;font-weight:600">${s.lastContact}</span>
+      <span style="font-family:var(--mo);font-size:11px;color:var(--mu)">(${sinceContact}j)</span>
+      ${sinceContact>7?`<span class="relance-alert">⏰ Relance recommandée</span>`:''}
+    </div>`:''}
+    <div class="det-section">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div><div class="det-label">SECTEUR</div><div class="det-value">${s.sec||'—'}</div></div>
+        <div><div class="det-label">SOURCE</div><div class="det-value">${s.src}${s.url?` · <a href="${s.url}" target="_blank" style="color:var(--bl);font-size:11px">Voir ↗</a>`:''}</div></div>
+      </div>
+    </div>
+    <div class="det-section">
+      <div class="det-label">SIGNAL DÉTECTÉ</div>
+      <div style="font-size:15px;font-weight:700;letter-spacing:-.2px;line-height:1.4">${s.sig}</div>
+    </div>
+    ${s.cts?`<div class="det-section">
+      <div class="det-label" style="margin-bottom:9px">CONTACTS IDENTIFIÉS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">${s.cts.split('/').map(c=>`<span class="chip" style="font-size:12px;padding:4px 11px">${c.trim()}</span>`).join('')}</div>
+    </div>`:''}
+    ${s.act?`<div class="det-section" style="background:var(--as);border-color:var(--ab)"><div class="det-label" style="color:var(--am)">ACTION À MENER</div><div style="font-size:13px;font-weight:600;color:var(--am)">${s.act}</div></div>`:''}
+    ${s.notes?`<div class="det-section"><div class="det-label">NOTES</div><div class="det-value">${s.notes}</div></div>`:''}
+    ${s.ia_verdict?(()=>{
+      const vc=s.ia_verdict==='GO'?'vgo':s.ia_verdict==='NO-GO'?'vno':'vam';
+      const sc=v=>v>=7?'var(--gr)':v>=4?'var(--am)':'var(--red)';
+      const scores=[{l:'Maturité UX',v:s.ia_score_ux||0},{l:'Pertinence UXR',v:s.ia_score_p||0},{l:'Potentiel budget',v:s.ia_score_b||0}];
+      return`<div class="dv"></div>
+      <div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1.5px;margin-bottom:8px">⟡ ANALYSE GEMINI${s.ia_date?' · '+s.ia_date.slice(0,10):''}</div>
+      <div class="vb ${vc}" style="margin-bottom:12px">
+        <div style="flex:1"><div class="vf">${s.ia_verdict}</div><div class="vt" style="font-size:14px">${s.ia_synthese||'Analyse disponible'}</div></div>
+        ${s.ia_horizon?`<div style="text-align:right"><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:3px">HORIZON</div><div style="font-family:var(--mo);font-size:11px">${s.ia_horizon}</div></div>`:''}
+      </div>
+      ${scores.map(({l,v})=>`<div class="sr"><span class="sl" style="font-size:11px">${l}</span><div class="sk"><div class="sf" style="width:${v*10}%;background:${sc(v)}"></div></div><span class="sn">${v}/10</span></div>`).join('')}
+      ${s.ia_angle?`<div style="margin-top:10px;padding:10px 13px;background:var(--b3);border:1px solid var(--br);border-radius:8px;font-size:12px;color:var(--am);line-height:1.6"><span style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;display:block;margin-bottom:4px">ANGLE D'APPROCHE</span>${s.ia_angle}</div>`:''}`
+    })():''}
+    <div class="dv"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px">JOURNAL DE BORD ${jn.length?`<span style="background:var(--b4);padding:1px 6px;border-radius:8px;margin-left:4px">${jn.length}</span>`:''}</div>
+      <button class="btn bg bsm" onclick="closeMo('mo-det');openJournal(${id})">✎ Éditer le journal</button>
+    </div>
+    ${jn.length?`<div class="jn-wrap">${jn.slice().reverse().map(e=>`<div class="jn-entry"><span class="jn-ts">${e.ts}</span><span class="jn-txt">${e.txt}</span></div>`).join('')}</div>`:'<div style="font-size:12px;color:var(--m2);margin-bottom:12px">Aucune note — cliquer sur "Éditer le journal" pour commencer.</div>'}
+    ${(s.pitch||s.call)?`<div class="dv"></div><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:9px">PITCH DISPONIBLE</div>
+    <div class="ptb">${s.pitch?'<button class="pt on" onclick="swPt(this,\'de-em\')">✉ Email</button>':''}${s.call?`<button class="pt${s.pitch?'':' on'}" onclick="swPt(this,'de-ca')">📞 Appel</button>`:''}</div>
+    ${s.pitch?`<div class="pc2 on" id="de-em"><div class="pb">${s.pitch}</div><button class="btn bg bsm" onclick="cp(${JSON.stringify(s.pitch)})">⧉ Copier</button></div>`:''}
+    ${s.call?`<div class="pc2${s.pitch?'':' on'}" id="de-ca"><div class="pb">${s.call}</div><button class="btn bg bsm" onclick="cp(${JSON.stringify(s.call)})">⧉ Copier</button></div>`:''}
+    `:''}`;
+  document.getElementById('dt-ed').onclick=()=>{closeMo('mo-det');openEdit(id)};
+  document.getElementById('dt-pt').onclick=()=>{closeMo('mo-det');openPitchFor(id)};
+  openMo('mo-det');
+}
+
+function swPt(btn,id){
+  btn.closest('.mb,.rs').querySelectorAll('.pt').forEach(t=>t.classList.remove('on'));
+  btn.closest('.mb,.rs').querySelectorAll('.pc2').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');document.getElementById(id)?.classList.add('on');
+}
+
+const SYS_SC=`Tu es un expert en développement commercial pour UX Republic, agence UX/Product Design à Lille.
+Analyse le signal business. UX Republic intervient sur : UX Research, UX/UI Design, Product Design & Design System, UX Strategy.
+Bons signaux : recrutement PM/PO/Designer/Head of Product, refonte digitale, lancement app, outils internes employés.
+Mauvais : infra cloud pure, ERP/CRM tiers fermés, pipeline machine-to-machine.
+Réponds UNIQUEMENT en JSON valide sans markdown :
+{"verdict":"GO"|"NO-GO"|"AMBIGU","horizon":"court terme"|"moyen terme (6-18 mois)"|"hors cible","titre":"phrase max 8 mots","synthese":"2-3 phrases","scores":{"maturite_ux":0-10,"pertinence_uxr":0-10,"potentiel_budget":0-10},"signaux_positifs":["..."],"signaux_negatifs":["..."],"interlocuteurs":[{"titre":"...","priorite":"haute"|"moyenne"|"basse"}],"angle_approche":"..."}`;
+
+async function runScan(){
+  const inp=document.getElementById('sc-in').value.trim();if(!inp)return;
+  const btn=document.getElementById('sc-btn'),t=document.getElementById('sc-t');
+  btn.disabled=true;t.innerHTML='<span class="spin"></span> Analyse en cours...';
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS_SC,messages:[{role:'user',content:inp}]})});
+    const d=await r.json();
+    const raw=d.content?.map(c=>c.text||'').join('')||'';
+    renderScanRes(JSON.parse(raw.replace(/```json|```/g,'').trim()));
+  }catch(e){document.getElementById('sc-res').innerHTML=`<div style="background:var(--rs);border:1px solid var(--rb);border-radius:10px;padding:14px;color:var(--red);font-family:var(--mo);font-size:12px">Erreur : ${e.message}</div>`}
+  btn.disabled=false;t.textContent='⟡ Analyser avec Claude';
+}
+
+function renderScanRes(d){
+  const vc=d.verdict==='GO'?'vgo':d.verdict==='NO-GO'?'vno':'vam';
+  const sc=v=>v>=7?'var(--gr)':v>=4?'var(--am)':'var(--red)';
+  const s=d.scores||{};
+  const rows=[{l:'Maturité UX',k:'maturite_ux'},{l:'Pertinence UX Republic',k:'pertinence_uxr'},{l:'Potentiel budget',k:'potentiel_budget'}].map(x=>{const v=s[x.k]??0;return`<div class="sr"><span class="sl">${x.l}</span><div class="sk"><div class="sf" style="width:${v*10}%;background:${sc(v)}"></div></div><span class="sn">${v}/10</span></div>`}).join('');
+  const pc=p=>p==='haute'?'var(--gr)':p==='moyenne'?'var(--am)':'var(--mu)';
+  const div=document.getElementById('sc-res');
+  div.innerHTML=`<div class="rs">
+    <div class="vb ${vc}">
+      <div style="flex:1"><div class="vf">${d.verdict}</div><div class="vt">${d.titre||''}</div></div>
+      ${d.horizon?`<div style="text-align:right"><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:3px">HORIZON</div><div style="font-family:var(--mo);font-size:12px">${d.horizon}</div></div>`:''}
+    </div>
+    <div style="font-size:13px;line-height:1.75;color:var(--mu);margin-bottom:16px">${d.synthese||''}</div>
+    ${rows}
+    ${(d.signaux_positifs?.length||d.signaux_negatifs?.length)?`<div class="dv"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px">
+      <div><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:6px">SIGNAUX POSITIFS</div>${(d.signaux_positifs||[]).map(x=>`<div class="stag sp">✓ ${x}</div>`).join('')}</div>
+      <div><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:6px">ALERTES</div>${(d.signaux_negatifs||[]).map(x=>`<div class="stag sn2">✗ ${x}</div>`).join('')}</div>
+    </div>`:''}
+    ${(d.interlocuteurs||[]).length?`<div class="dv"></div><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:6px">INTERLOCUTEURS</div><div style="display:flex;flex-wrap:wrap;gap:4px">${(d.interlocuteurs||[]).map(c=>`<span class="chip"><span style="width:6px;height:6px;border-radius:50%;background:${pc(c.priorite)};display:inline-block"></span>${c.titre}</span>`).join('')}</div>`:''}
+    ${d.angle_approche?`<div class="dv"></div><div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:5px">ANGLE D'APPROCHE</div><div style="font-size:13px;color:var(--am);line-height:1.6">${d.angle_approche}</div>`:''}
+    ${d.verdict!=='NO-GO'?`<div class="dv"></div><button class="btn bp bsm" onclick="quickAdd(${JSON.stringify(d.titre||'')})">+ Ajouter au radar</button>`:''}
+  </div>`;
+  div.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function quickAdd(titre){openAdd();document.getElementById('f-sig').value=titre}
+
+const SYS_PT=`Tu génères des pitches commerciaux pour UX Republic, agence UX/Product Design à Lille.
+Réponds UNIQUEMENT en JSON valide sans markdown :
+{"email_subject":"objet email","email_body":"corps email complet (max 150 mots), professionnel et personnalisé, CTA clair pour obtenir un RDV. Termine par [Ton Prénom] · UX-Republic","call_script":"trame d'appel en 5 étapes : 1.Accroche, 2.Valeur ajoutée, 3.Question ouverte, 4.Closing, 5.Traitement objection — format texte clair"}`;
+
+async function runPitch(){
+  const co=document.getElementById('p-co').value.trim(),sig=document.getElementById('p-sig').value.trim();
+  if(!co||!sig){toast('Renseigne l\'entreprise et le signal','error');return}
+  const btn=document.getElementById('pt-btn'),t=document.getElementById('pt-t');
+  btn.disabled=true;t.innerHTML='<span class="spin"></span> Génération en cours...';
+  const prm=`Entreprise : ${co}\nSecteur : ${document.getElementById('p-sec').value}\nSignal : ${sig}\nContact cible : ${document.getElementById('p-ct').value}\nContexte : ${document.getElementById('p-ctx').value||'Prospect sans contact préalable'}`;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:SYS_PT,messages:[{role:'user',content:prm}]})});
+    const d=await r.json();
+    const raw=d.content?.map(c=>c.text||'').join('')||'';
+    renderPitchRes(JSON.parse(raw.replace(/```json|```/g,'').trim()),co);
+  }catch(e){document.getElementById('pt-res').innerHTML=`<div style="background:var(--rs);border:1px solid var(--rb);border-radius:10px;padding:14px;color:var(--red);font-family:var(--mo);font-size:12px">Erreur : ${e.message}</div>`}
+  btn.disabled=false;t.textContent='✦ Générer le pitch';
+}
+
+function renderPitchRes(d,co){
+  const div=document.getElementById('pt-res');
+  div.innerHTML=`<div class="rs">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="font-weight:600">Pitch — ${co}</div>
+      <button class="btn bs bsm" onclick="savePitch(${JSON.stringify(co)},${JSON.stringify(d.email_body||'')},${JSON.stringify(d.call_script||'')})">⊕ Enregistrer dans le signal</button>
+    </div>
+    <div class="ptb"><button class="pt on" onclick="swPt2(this,'pt-em')">✉ Email</button><button class="pt" onclick="swPt2(this,'pt-ca')">📞 Trame d'appel</button></div>
+    <div class="pc2 on" id="pt-em">
+      <div style="font-family:var(--mo);font-size:9px;color:var(--mu);letter-spacing:1px;margin-bottom:4px">OBJET</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">${d.email_subject||''}</div>
+      <div class="pb">${d.email_body||''}</div>
+      <button class="btn bg bsm" onclick="cp(${JSON.stringify((d.email_subject||'')+'\n\n'+(d.email_body||''))})">⧉ Copier</button>
+    </div>
+    <div class="pc2" id="pt-ca">
+      <div class="pb">${d.call_script||''}</div>
+      <button class="btn bg bsm" onclick="cp(${JSON.stringify(d.call_script||'')})">⧉ Copier</button>
+    </div>
+  </div>`;
+  div.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function swPt2(btn,id){
+  btn.closest('.rs').querySelectorAll('.pt').forEach(t=>t.classList.remove('on'));
+  btn.closest('.rs').querySelectorAll('.pc2').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');document.getElementById(id)?.classList.add('on');
+}
+
+function savePitch(co,email,call){
+  const s=signals.find(x=>x.co===co);
+  if(s){s.pitch=email;s.call=call;save();toast('Pitch enregistré dans '+co+' ✓','success')}
+  else toast('Signal introuvable pour '+co,'error');
+}
+
+function openPitchFor(id){
+  const s=signals.find(x=>x.id===id);if(!s)return;
+  nav('ptch');
+  document.getElementById('p-co').value=s.co;
+  document.getElementById('p-sec').value=s.sec;
+  document.getElementById('p-sig').value=s.sig;
+  document.getElementById('p-ct').value=s.cts?s.cts.split('/')[0].trim():'';
+  document.getElementById('p-ctx').value=s.type==='ANCIEN CLIENT'?'Ancien client UX Republic':s.type==='CLIENT'?'Client actuel UX Republic — opportunité de cross-sell':'';
+}
+
+let editSuivIdx=null;
+
+function openAddSuiv(){
+  editSuivIdx=null;
+  document.getElementById('suiv-mo-t').textContent='Nouveau suivi de contact';
+  ['sv-co','sv-sig','sv-cts','sv-notes'].forEach(id=>document.getElementById(id).value='');
+  ['sv-rep','sv-rdv','sv-opp'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sv-last').value=new Date().toISOString().slice(0,10);
+  openMo('mo-suiv');
+}
+
+function editSuivModal(i){
+  const s=suivis[i];if(!s)return;
+  editSuivIdx=i;
+  document.getElementById('suiv-mo-t').textContent='Modifier suivi — '+s.co;
+  document.getElementById('sv-co').value=s.co;
+  document.getElementById('sv-sig').value=s.sig||'';
+  document.getElementById('sv-cts').value=s.cts||'';
+  document.getElementById('sv-rep').value=s.rep||'';
+  document.getElementById('sv-rdv').value=s.rdv||'';
+  document.getElementById('sv-opp').value=s.opp||'';
+  document.getElementById('sv-notes').value=s.notes||'';
+  // Date dernier contact depuis le signal associé
+  const sig=signals.find(x=>x.co===s.co);
+  document.getElementById('sv-last').value=sig?.lastContact||'';
+  openMo('mo-suiv');
+}
+
+function saveSuivModal(){
+  const co=document.getElementById('sv-co').value.trim();
+  if(!co){toast("Renseigne le nom de l'entreprise",'error');return;}
+  const sig=document.getElementById('sv-sig').value.trim();
+  const cts=document.getElementById('sv-cts').value.trim();
+  const rep=document.getElementById('sv-rep').value;
+  const rdv=document.getElementById('sv-rdv').value;
+  const opp=document.getElementById('sv-opp').value;
+  const notes=document.getElementById('sv-notes').value.trim();
+  const lastDate=document.getElementById('sv-last').value;
+  if(editSuivIdx!==null){
+    // Modification d'un suivi existant
+    const s=suivis[editSuivIdx];
+    s.co=co;s.sig=sig;s.cts=cts;s.rep=rep;s.rdv=rdv;s.opp=opp;s.notes=notes;
+    const signal=signals.find(x=>x.co===co);
+    if(signal&&lastDate) signal.lastContact=lastDate;
+    save();renderSuiv();renderPipe();toast('Suivi mis à jour ✓','success');
+  } else {
+    // Nouveau suivi direct
+    if(suivis.find(x=>x.co===co&&(!x.result||x.result===''))){toast('Un suivi actif existe déjà pour '+co,'error');return;}
+    suivis.push({co,sig,cts,rep,rdv,opp,result:'',notes});
+    // Si un signal correspond, le marquer comme contacté
+    const signal=signals.find(x=>x.co===co);
+    if(signal){signal.cnt='Oui';if(lastDate)signal.lastContact=lastDate;}
+    save();renderSuiv();renderPipe();renderSig();renderDash();toast('Suivi ajouté ✓','success');
+  }
+  closeMo('mo-suiv');
+}
+
+// Kept for backward compat but now delegates to modal
+function editSuiv(i){ editSuivModal(i); }
+
+// ── CLÔTURE ──────────────────────────────────────────────────────────
+function clotureSuiv(i, result){
+  const s=suivis[i];
+  const label=result==='GO'?'gagné ✓':'perdu ✗';
+  if(!confirm(`Clôturer "${s.co}" comme ${label} ? Il passera dans l'Historique.`)) return;
+  s.result=result;
+  const sig=signals.find(x=>x.co===s.co);
+  if(sig) archiveToHist(sig, result);
+  suivis.splice(i,1);
+  if(sig){ sig.cnt='Non'; sig.urgForced='auto'; }
+  save(); renderSuiv(); renderPipe(); renderSig(); renderDash();
+  toast(s.co+' clôturé — '+label,'success');
+}
+
+// ── JOURNAL ──────────────────────────────────────────────────────────
+let jnSigId=null;
+
+function openJournal(id){
+  const s=signals.find(x=>x.id===id);if(!s)return;
+  jnSigId=id;
+  if(!s.journal) s.journal=[];
+  document.getElementById('jn-t').textContent='Journal — '+s.co;
+  document.getElementById('jn-last').value=s.lastContact||'';
+  renderJnEntries(s);
+  openMo('mo-jn');
+}
+
+function renderJnEntries(s){
+  const jn=s.journal||[];
+  document.getElementById('jn-entries').innerHTML=jn.length
+    ?jn.slice().reverse().map((e,ri)=>{
+        const realIdx=jn.length-1-ri;
+        return`<div class="jn-entry">
+          <span class="jn-ts">${e.ts}</span>
+          <span class="jn-txt">${e.txt}</span>
+          <button class="jn-del" onclick="delJnEntry(${realIdx})" title="Supprimer">✕</button>
+        </div>`;
+      }).join('')
+    :'<div style="color:var(--m2);font-size:12px;padding:8px 0">Aucune note pour l\'instant.</div>';
+}
+
+function addJnEntry(){
+  const s=signals.find(x=>x.id===jnSigId);if(!s)return;
+  const inp=document.getElementById('jn-inp');
+  const txt=inp.value.trim();if(!txt)return;
+  if(!s.journal) s.journal=[];
+  const now=new Date();
+  const ts=now.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})+' '+now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  s.journal.push({ts,txt});
+  inp.value='';
+  renderJnEntries(s);
+  save();
+}
+
+function delJnEntry(idx){
+  const s=signals.find(x=>x.id===jnSigId);if(!s)return;
+  s.journal.splice(idx,1);
+  renderJnEntries(s);
+  save();
+}
+
+function saveJn(){
+  const s=signals.find(x=>x.id===jnSigId);if(!s)return;
+  s.lastContact=document.getElementById('jn-last').value||'';
+  save();
+  closeMo('mo-jn');
+  toast('Journal enregistré ✓','success');
+}
+
+document.getElementById('jn-inp').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addJnEntry();}});
+
+// ── HISTORIQUE ────────────────────────────────────────────────────────
+function renderHist(){
+  const filt=document.getElementById('h-filt')?.value||'';
+  const list=filt?histoire.filter(h=>h.result===filt):histoire;
+  const go=histoire.filter(h=>h.result==='GO').length;
+  const ko=histoire.filter(h=>h.result==='KO').length;
+  const total=histoire.length;
+  document.getElementById('k-hist-stats').innerHTML=`
+    <div class="kc cg"><div class="kl">GAGNÉES</div><div class="kv">${go}</div><div class="ks">Opportunités GO</div></div>
+    <div class="kc cr"><div class="kl">PERDUES</div><div class="kv">${ko}</div><div class="ks">Opportunités KO</div></div>
+    <div class="kc cb"><div class="kl">TAUX DE CONVERSION</div><div class="kv">${total?Math.round(go/total*100):0}%</div><div class="ks">${total} clôturées au total</div></div>
+  `;
+  document.getElementById('hist-list').innerHTML=list.length
+    ?list.slice().reverse().map((h,i)=>`
+      <div class="hist-card">
+        <div class="hist-dot" style="background:${h.result==='GO'?'var(--gr)':'var(--red)'}"></div>
+        <div class="hist-info">
+          <div class="hist-co">${h.co} <span style="font-weight:400;color:var(--mu)">· ${h.sec||''}</span></div>
+          <div class="hist-sig">${h.sig}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span class="bge ${h.result==='GO'?'bg_':'br_'}">${h.result==='GO'?'✓ Gagné':'✗ Perdu'}</span>
+            ${typeBadge(h.type)}
+            ${h.rdv==='Oui'?'<span class="bge bg_">RDV obtenu</span>':''}
+          </div>
+          ${h.notes?`<div style="font-size:12px;color:var(--mu);margin-bottom:6px">${h.notes}</div>`:''}
+          ${(h.journal||[]).length?`<details style="margin-top:4px"><summary style="font-family:var(--mo);font-size:10px;color:var(--m2);cursor:pointer;letter-spacing:1px">${h.journal.length} NOTE(S) DE JOURNAL</summary><div class="jn-wrap" style="margin-top:8px">${h.journal.slice().reverse().map(e=>`<div class="jn-entry"><span class="jn-ts">${e.ts}</span><span class="jn-txt">${e.txt}</span></div>`).join('')}</div></details>`:''}
+          <div style="margin-top:8px">
+            <button class="btn bsm" style="background:var(--as);color:var(--am);border:1px solid var(--ab);padding:3px 9px;font-size:10px" onclick="undoCloture(${h.sigId})">↩ Annuler la clôture</button>
+          </div>
+        </div>
+        <div class="hist-meta">${h.date}</div>
+      </div>`).join('')
+    :`<div style="text-align:center;color:var(--mu);padding:48px 0;font-size:13px">Aucune opportunité clôturée — utilisez les boutons ✓ GO / ✗ KO dans les Suivis de contact</div>`;
+}
+
+// ── RACCOURCI CLAVIER ────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.isContentEditable) return;
+  if(e.key==='n'||e.key==='N'){e.preventDefault();openAdd();}
+  if(e.key==='s'||e.key==='S'){e.preventDefault();openAddSuiv();}
+  if(e.key==='Escape'){
+    document.querySelectorAll('.mo.op').forEach(m=>m.classList.remove('op'));
+  }
+});
+
+function openMo(id){document.getElementById(id).classList.add('op')}
+function closeMo(id){document.getElementById(id).classList.remove('op')}
+document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeMo(m.id)}));
+
+function toast(msg,type='success'){
+  const t=document.getElementById('tst');
+  document.getElementById('tst-m').textContent=msg;
+  document.getElementById('tst-d').style.color=type==='success'?'var(--gr)':'var(--red)';
+  t.classList.add('sh2');setTimeout(()=>t.classList.remove('sh2'),3000);
+}
+
+function cp(txt){navigator.clipboard.writeText(txt).then(()=>toast('Copié ✓')).catch(()=>toast('Impossible de copier','error'))}
+
+function deleteSig(id){
+  const s=signals.find(x=>x.id===id);if(!s)return;
+  if(!confirm('Supprimer le signal "'+s.co+'" ? Cette action est irréversible.'))return;
+  signals=signals.filter(x=>x.id!==id);
+  suivis=suivis.filter(x=>x.co!==s.co);
+  save();renderSig();renderPipe();renderSuiv();renderDash();
+  toast('Signal "'+s.co+'" supprimé','success');
+}
+
+function deleteSuiv(i){
+  const s=suivis[i];if(!s)return;
+  if(!confirm('Supprimer le suivi de "'+s.co+'" ?'))return;
+  suivis.splice(i,1);
+  // Remettre le signal en non-contacté si on supprime le suivi
+  const sig=signals.find(x=>x.co===s.co);
+  if(sig){sig.cnt='Non';save();}
+  else save();
+  renderSuiv();renderPipe();renderSig();renderDash();
+  toast('Suivi de "'+s.co+'" supprimé','success');
+}
+
+load();
+</script>
+</body>
+</html>
